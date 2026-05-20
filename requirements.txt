@@ -1,0 +1,40 @@
+# =============================================================================
+# Kommo CRM Integration — Dependencies
+# Python 3.11+
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# HTTP Client
+# ---------------------------------------------------------------------------
+httpx==0.27.0                  # Modern HTTP client with timeout & retry support
+requests==2.32.3               # Used in auth/oauth.py for OAuth token exchange
+
+# ---------------------------------------------------------------------------
+# Configuration & Environment
+# ---------------------------------------------------------------------------
+pydantic==2.7.1                # Data validation and serialization
+pydantic-settings==2.3.1       # Type-safe settings from .env files
+python-dotenv==1.0.1           # .env file loader (load_dotenv in entry points)
+
+# ---------------------------------------------------------------------------
+# Security — Token Encryption
+# ---------------------------------------------------------------------------
+cryptography==42.0.8           # Fernet symmetric encryption for token storage
+
+# ---------------------------------------------------------------------------
+# Resilience & Retry
+# ---------------------------------------------------------------------------
+tenacity==8.3.0                # Declarative retry with exponential backoff
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+structlog==24.2.0              # Structured JSON logging
+
+# ---------------------------------------------------------------------------
+# Development & Testing
+# ---------------------------------------------------------------------------
+pytest==8.2.2
+pytest-httpx==0.30.0           # Mock httpx calls in tests
+ruff==0.4.7                    # Fast Python linter
+mypy==1.10.0                   # Static type checker

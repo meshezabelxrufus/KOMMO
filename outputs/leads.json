@@ -1,0 +1,169 @@
+{
+  "_meta": {
+    "entity": "leads",
+    "count": 5,
+    "extracted_at": "2025-01-15T10:23:45+00:00",
+    "source": "kommo_api_v4"
+  },
+  "data": [
+    {
+      "id": 10482301,
+      "name": "Enterprise SaaS Deal — Acme Corp",
+      "pipeline_id": 3821,
+      "status_id": 40291,
+      "responsible_user_id": 7712,
+      "group_id": 142,
+      "created_at": 1705224225,
+      "updated_at": 1736847825,
+      "closed_at": null,
+      "price": 48000,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": 87,
+      "account_id": 30019,
+      "created_at_iso": "2024-01-14T09:03:45+00:00",
+      "updated_at_iso": "2025-01-14T09:03:45+00:00",
+      "custom_fields_values": [
+        {
+          "field_id": 551234,
+          "field_name": "Lead Source",
+          "field_code": "LEAD_SOURCE",
+          "field_type": "select",
+          "values": [
+            { "value": "Website", "enum_id": 9901 }
+          ]
+        },
+        {
+          "field_id": 551235,
+          "field_name": "Company Size",
+          "field_code": "COMPANY_SIZE",
+          "field_type": "text",
+          "values": [
+            { "value": "500-1000 employees" }
+          ]
+        }
+      ],
+      "tags": [
+        { "id": 881, "name": "enterprise" },
+        { "id": 882, "name": "priority" }
+      ]
+    },
+    {
+      "id": 10482302,
+      "name": "SMB Onboarding — Beta Solutions",
+      "pipeline_id": 3821,
+      "status_id": 40292,
+      "responsible_user_id": 7713,
+      "group_id": 142,
+      "created_at": 1705310625,
+      "updated_at": 1736761425,
+      "closed_at": null,
+      "price": 12000,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": 62,
+      "account_id": 30019,
+      "created_at_iso": "2024-01-15T09:03:45+00:00",
+      "updated_at_iso": "2025-01-13T09:03:45+00:00",
+      "custom_fields_values": [
+        {
+          "field_id": 551234,
+          "field_name": "Lead Source",
+          "field_code": "LEAD_SOURCE",
+          "field_type": "select",
+          "values": [
+            { "value": "Referral", "enum_id": 9902 }
+          ]
+        }
+      ],
+      "tags": [
+        { "id": 883, "name": "smb" }
+      ]
+    },
+    {
+      "id": 10482303,
+      "name": "Renewal — GlobalTech Ltd",
+      "pipeline_id": 3822,
+      "status_id": 40295,
+      "responsible_user_id": 7712,
+      "group_id": 143,
+      "created_at": 1704619425,
+      "updated_at": 1736675025,
+      "closed_at": null,
+      "price": 96000,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": 95,
+      "account_id": 30019,
+      "created_at_iso": "2024-01-07T09:03:45+00:00",
+      "updated_at_iso": "2025-01-12T09:03:45+00:00",
+      "custom_fields_values": [
+        {
+          "field_id": 551236,
+          "field_name": "Contract End Date",
+          "field_code": "CONTRACT_END",
+          "field_type": "date",
+          "values": [
+            { "value": 1740787200 }
+          ]
+        }
+      ],
+      "tags": [
+        { "id": 881, "name": "enterprise" },
+        { "id": 884, "name": "renewal" }
+      ]
+    },
+    {
+      "id": 10482304,
+      "name": "Inbound Demo Request — Spark Analytics",
+      "pipeline_id": 3821,
+      "status_id": 40290,
+      "responsible_user_id": 7714,
+      "group_id": 142,
+      "created_at": 1736588625,
+      "updated_at": 1736847825,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": 34,
+      "account_id": 30019,
+      "created_at_iso": "2025-01-11T09:03:45+00:00",
+      "updated_at_iso": "2025-01-14T09:03:45+00:00",
+      "custom_fields_values": [
+        {
+          "field_id": 551234,
+          "field_name": "Lead Source",
+          "field_code": "LEAD_SOURCE",
+          "field_type": "select",
+          "values": [
+            { "value": "Inbound", "enum_id": 9900 }
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": 10482305,
+      "name": "Lost — NovaCorp (Budget Freeze)",
+      "pipeline_id": 3821,
+      "status_id": 143,
+      "responsible_user_id": 7712,
+      "group_id": 142,
+      "created_at": 1703928225,
+      "updated_at": 1736070225,
+      "closed_at": 1736070225,
+      "price": 24000,
+      "loss_reason_id": 7,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 30019,
+      "created_at_iso": "2023-12-30T09:03:45+00:00",
+      "updated_at_iso": "2025-01-05T09:03:45+00:00",
+      "custom_fields_values": [],
+      "tags": [
+        { "id": 885, "name": "budget-freeze" }
+      ]
+    }
+  ]
+}

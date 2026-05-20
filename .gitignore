@@ -1,0 +1,50 @@
+# =============================================================================
+# Kommo Integration — .gitignore
+# =============================================================================
+
+# Environment & Secrets — NEVER commit these
+.env
+auth/token_store.json
+state/tokens.enc
+state/*.enc
+state/sync_state.json
+state/*.json
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Output data (optional — remove if you want to commit sample outputs)
+outputs/data/*.json
+outputs/errors/*.json
+logs/*.log
+
+# Atomic temp files (should never persist, but guard anyway)
+*.tmp

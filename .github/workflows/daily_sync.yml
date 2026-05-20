@@ -1,0 +1,351 @@
+# =============================================================================
+# .github/workflows/daily_sync.yml
+# =============================================================================
+# Kommo CRM — Daily Extraction Pipeline
+#
+# SCHEDULE:   Daily at 06:00 UTC (configurable — see "Scheduling" section)
+# TRIGGERS:   Schedule + Manual (workflow_dispatch) + Push to main
+#
+# WHAT IT DOES
+# ────────────
+#   1. Checkout repository
+#   2. Set up Python 3.11
+#   3. Cache pip dependencies (speeds up subsequent runs)
+#   4. Install dependencies from requirements.txt
+#   5. Restore encrypted token store from GitHub Secret
+#   6. Run main.py (full or incremental extraction)
+#   7. Upload output JSON files as workflow artifacts (30-day retention)
+#   8. Upload log files as workflow artifacts
+#   9. Notify on failure (configurable — email/Slack)
+#  10. Persist updated sync state back to repository (optional)
+#
+# REQUIRED GITHUB SECRETS
+# ────────────────────────
+#   KOMMO_CLIENT_ID         — OAuth App Client ID
+#   KOMMO_CLIENT_SECRET     — OAuth App Client Secret
+#   KOMMO_REDIRECT_URI      — OAuth redirect URI
+#   KOMMO_SUBDOMAIN         — Your Kommo subdomain (e.g. mycompany)
+#   TOKEN_ENCRYPTION_KEY    — Fernet key for token store encryption
+#   KOMMO_TOKEN_STORE       — Base64-encoded content of auth/token_store.json
+#                             (see Deployment Setup section in README)
+#
+# OPTIONAL SECRETS (for notifications)
+#   SLACK_WEBHOOK_URL       — Slack incoming webhook for failure alerts
+#
+# =============================================================================
+
+name: Kommo CRM — Daily Sync
+
+on:
+  # ── Scheduled: Daily at 06:00 UTC ────────────────────────────────────────
+  # Cron syntax: minute hour day-of-month month day-of-week
+  # Examples:
+  #   "0 6 * * *"      → 06:00 UTC daily
+  #   "0 6 * * 1-5"    → 06:00 UTC Monday–Friday only
+  #   "0 6,18 * * *"   → 06:00 and 18:00 UTC daily (twice a day)
+  #   "0 */6 * * *"    → Every 6 hours
+  schedule:
+    - cron: "0 6 * * *"
+
+  # ── Manual trigger: run from GitHub Actions UI or CLI ────────────────────
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Extraction mode"
+        required: true
+        default: "incremental"
+        type: choice
+        options:
+          - incremental    # Only records updated since last run
+          - full           # Full re-extraction of all records
+          - slim-tasks     # Full extraction + 6-field slim tasks output
+      log_level:
+        description: "Log level"
+        required: false
+        default: "INFO"
+        type: choice
+        options:
+          - INFO
+          - DEBUG
+          - WARNING
+      fail_fast:
+        description: "Stop on first extractor failure"
+        required: false
+        default: false
+        type: boolean
+
+  # ── Push trigger: run on every push to main (optional) ───────────────────
+  # Remove or comment out this block if you only want scheduled runs
+  push:
+    branches:
+      - main
+    paths:
+      # Only trigger if extraction code changed (not README, tests, etc.)
+      - "api/**"
+      - "auth/**"
+      - "config/**"
+      - "utils/**"
+      - "main.py"
+      - "requirements.txt"
+
+# Prevent overlapping runs — cancel in-progress if a new one starts
+concurrency:
+  group: kommo-sync
+  cancel-in-progress: false   # Set to true if you want to cancel stale runs
+
+# Minimal permissions — principle of least privilege
+permissions:
+  contents: write    # Needed to commit updated sync_state.json (if enabled)
+  actions:  read
+
+jobs:
+  extract:
+    name: "Kommo Extraction — ${{ github.event.inputs.mode || 'incremental' }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 60   # Kill the job if it runs longer than 1 hour
+
+    env:
+      # ── Kommo Credentials (from GitHub Secrets) ──────────────────────────
+      KOMMO_CLIENT_ID:          ${{ secrets.KOMMO_CLIENT_ID }}
+      KOMMO_CLIENT_SECRET:      ${{ secrets.KOMMO_CLIENT_SECRET }}
+      KOMMO_REDIRECT_URI:       ${{ secrets.KOMMO_REDIRECT_URI }}
+      KOMMO_SUBDOMAIN:          ${{ secrets.KOMMO_SUBDOMAIN }}
+      TOKEN_ENCRYPTION_KEY:     ${{ secrets.TOKEN_ENCRYPTION_KEY }}
+
+      # ── Runtime paths ─────────────────────────────────────────────────────
+      TOKEN_STORE_PATH:         auth/token_store.json
+      SYNC_STATE_PATH:          state/sync_state.json
+
+      # ── API behaviour ─────────────────────────────────────────────────────
+      KOMMO_MAX_PAGE_SIZE:      250
+      KOMMO_RATE_LIMIT_PER_SECOND: 7
+      KOMMO_CONNECT_TIMEOUT:    15
+      KOMMO_READ_TIMEOUT:       60
+      KOMMO_MAX_RETRIES:        4
+
+      # ── Logging ───────────────────────────────────────────────────────────
+      LOG_LEVEL:                ${{ github.event.inputs.log_level || 'INFO' }}
+      LOG_DIR:                  logs
+      LOG_TO_FILE:              true
+
+      # ── Output ────────────────────────────────────────────────────────────
+      OUTPUT_DIR:               outputs
+
+    steps:
+      # ── Step 1: Checkout ─────────────────────────────────────────────────
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1   # Shallow clone — faster
+
+      # ── Step 2: Python setup ─────────────────────────────────────────────
+      - name: "🐍 Set up Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ── Step 3: Pip cache ────────────────────────────────────────────────
+      - name: "📦 Cache pip dependencies"
+        uses: actions/cache@v4
+        id: pip-cache
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # ── Step 4: Install dependencies ─────────────────────────────────────
+      - name: "📦 Install dependencies"
+        run: |
+          python -m pip install --upgrade pip --quiet
+          pip install -r requirements.txt --quiet
+          echo "Dependencies installed successfully."
+
+      # ── Step 5: Create required directories ──────────────────────────────
+      - name: "📁 Create output directories"
+        run: |
+          mkdir -p outputs/errors logs state auth
+
+      # ── Step 6: Restore token store from GitHub Secret ───────────────────
+      # The token store is a JSON file encrypted with Fernet.
+      # We store its base64-encoded content in a GitHub Secret (KOMMO_TOKEN_STORE).
+      # On each run we decode it back to the expected file path.
+      - name: "🔑 Restore OAuth token store"
+        env:
+          KOMMO_TOKEN_STORE: ${{ secrets.KOMMO_TOKEN_STORE }}
+        run: |
+          if [ -z "$KOMMO_TOKEN_STORE" ]; then
+            echo "::error::Secret KOMMO_TOKEN_STORE is not set."
+            echo "::error::Run 'python run_auth.py' locally, then base64-encode"
+            echo "::error::auth/token_store.json and add it as a GitHub Secret."
+            echo ""
+            echo "  Encode command:"
+            echo "  base64 -i auth/token_store.json | tr -d '\n'"
+            exit 1
+          fi
+          echo "$KOMMO_TOKEN_STORE" | base64 --decode > auth/token_store.json
+          echo "Token store restored ($(wc -c < auth/token_store.json) bytes)."
+
+      # ── Step 7: Restore sync state (enables incremental extraction) ───────
+      # We cache sync_state.json between runs using GitHub Actions cache.
+      # This allows --auto-incremental to read the last run timestamp.
+      - name: "🔄 Restore sync state cache"
+        uses: actions/cache@v4
+        id: sync-state-cache
+        with:
+          path: state/sync_state.json
+          key: kommo-sync-state-${{ github.run_id }}
+          restore-keys: |
+            kommo-sync-state-
+
+      # ── Step 8: Run extraction pipeline ──────────────────────────────────
+      - name: "🚀 Run extraction pipeline"
+        id: extraction
+        run: |
+          # Build the command based on workflow_dispatch inputs or defaults
+          MODE="${{ github.event.inputs.mode || 'incremental' }}"
+          FAIL_FAST="${{ github.event.inputs.fail_fast || 'false' }}"
+
+          CMD="python main.py"
+
+          case "$MODE" in
+            incremental)
+              CMD="$CMD --auto-incremental"
+              echo "Mode: incremental (reading last run from sync_state.json)"
+              ;;
+            full)
+              echo "Mode: full extraction"
+              ;;
+            slim-tasks)
+              CMD="$CMD --slim-tasks"
+              echo "Mode: full extraction with slim tasks output"
+              ;;
+          esac
+
+          if [ "$FAIL_FAST" = "true" ]; then
+            CMD="$CMD --fail-fast"
+          fi
+
+          echo "Running: $CMD"
+          echo ""
+
+          # Run extraction — exit code propagates to job result
+          $CMD
+
+          # Capture record counts from output files for the job summary
+          echo ""
+          echo "── Output file sizes ──"
+          for f in outputs/*.json; do
+            [ -f "$f" ] && printf "  %-40s %s KB\n" \
+              "$(basename $f)" \
+              "$(du -k "$f" | cut -f1)"
+          done
+
+      # ── Step 9: Write job summary ─────────────────────────────────────────
+      - name: "📊 Write job summary"
+        if: always()
+        run: |
+          STATUS="${{ steps.extraction.outcome }}"
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          {
+            echo "## Kommo Extraction — $( date -u '+%Y-%m-%d %H:%M UTC' )"
+            echo ""
+            echo "| Field | Value |"
+            echo "|---|---|"
+            echo "| Status | $( [ "$STATUS" = "success" ] && echo "✅ Success" || echo "❌ Failed" ) |"
+            echo "| Mode | ${{ github.event.inputs.mode || 'incremental' }} |"
+            echo "| Triggered by | ${{ github.event_name }} |"
+            echo "| Run URL | [View run]($RUN_URL) |"
+            echo ""
+
+            if ls outputs/*.json 2>/dev/null | head -1 > /dev/null; then
+              echo "### Output Files"
+              echo "| File | Size |"
+              echo "|---|---|"
+              for f in outputs/*.json; do
+                [ -f "$f" ] && echo "| $(basename $f) | $(du -h "$f" | cut -f1) |"
+              done
+            fi
+
+            if ls outputs/errors/*.json 2>/dev/null | head -1 > /dev/null; then
+              echo ""
+              echo "### ⚠️ Dead-letter files (validation failures)"
+              for f in outputs/errors/*.json; do
+                echo "- $(basename $f)"
+              done
+            fi
+
+            if [ -f state/sync_state.json ]; then
+              echo ""
+              echo "### Sync State"
+              echo '```json'
+              cat state/sync_state.json
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ── Step 10: Upload output JSON artifacts ─────────────────────────────
+      - name: "📤 Upload output JSON files"
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: "kommo-outputs-${{ github.run_id }}"
+          path: |
+            outputs/*.json
+            outputs/errors/*.json
+          retention-days: 30
+          if-no-files-found: warn
+
+      # ── Step 11: Upload log files ─────────────────────────────────────────
+      - name: "📤 Upload log files"
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: "kommo-logs-${{ github.run_id }}"
+          path: |
+            logs/kommo.log
+            logs/errors.log
+          retention-days: 14
+          if-no-files-found: warn
+
+      # ── Step 12: Save sync state cache (for next run's incremental mode) ──
+      - name: "💾 Save sync state"
+        if: steps.extraction.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: state/sync_state.json
+          key: kommo-sync-state-${{ github.run_id }}
+
+      # ── Step 13: Slack failure notification (optional) ────────────────────
+      # Requires SLACK_WEBHOOK_URL secret.
+      # Remove this step if you don't use Slack.
+      - name: "🔔 Notify Slack on failure"
+        if: failure() && secrets.SLACK_WEBHOOK_URL != ''
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {
+              "text": "❌ *Kommo Extraction Failed*",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "❌ *Kommo CRM Extraction Failed*\n*Run:* <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View details>\n*Trigger:* ${{ github.event_name }}\n*Time:* ${{ github.event.repository.updated_at }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      # ── Step 14: Secure cleanup ───────────────────────────────────────────
+      # Remove the decrypted token store from the runner's filesystem.
+      # GitHub Actions runners are ephemeral, but this is belt-and-suspenders.
+      - name: "🔒 Secure cleanup"
+        if: always()
+        run: |
+          rm -f auth/token_store.json
+          echo "Token store removed from runner."
