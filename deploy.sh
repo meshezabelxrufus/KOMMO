@@ -39,7 +39,7 @@ banner() {
 }
 
 # ── Helper: run docker compose with correct file ─────────────────────────────
-dc() { docker compose -f "$COMPOSE_FILE" "$@"; }
+dc() { docker compose -f "$COMPOSE_FILE" --env-file "$SECRETS_DIR/.env" "$@"; }
 
 # =============================================================================
 # COMMAND: deploy (default — first-time setup)
