@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "schema_version": "2.0",
+    "generated_at": "2026-05-23T10:18:54Z",
+    "pipeline_mode": "incremental",
+    "overall_status": "SUCCESS",
+    "total_duration_s": 2.93
+  },
+  "phases": {
+    "Extraction": {
+      "status": "SUCCESS",
+      "steps_total": 4,
+      "steps_ok": 4,
+      "duration_s": 1.832,
+      "records": 12
+    },
+    "AI Export": {
+      "status": "SUCCESS",
+      "steps_total": 1,
+      "steps_ok": 1,
+      "duration_s": 0.014,
+      "records": 0
+    },
+    "Google Sheets": {
+      "status": "FAILED",
+      "steps_total": 1,
+      "steps_ok": 0,
+      "duration_s": 0.077,
+      "records": 0
+    },
+    "Google Drive": {
+      "status": "FAILED",
+      "steps_total": 1,
+      "steps_ok": 0,
+      "duration_s": 0.036,
+      "records": 0
+    }
+  },
+  "steps": [
+    {
+      "name": "Pipelines",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 11,
+      "skipped": 0,
+      "duration_s": 0.572,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Leads",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 1,
+      "skipped": 0,
+      "duration_s": 0.5,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Tasks",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 0,
+      "skipped": 0,
+      "duration_s": 0.398,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Chats & Messages",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 0,
+      "skipped": 0,
+      "duration_s": 0.361,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Daily Export",
+      "phase": "AI Export",
+      "status": "SUCCESS",
+      "records": 0,
+      "skipped": 0,
+      "duration_s": 0.014,
+      "critical": false,
+      "error": null,
+      "export_date": "2026-05-23",
+      "total_leads": 0,
+      "total_messages": 0
+    },
+    {
+      "name": "Sheets Sync",
+      "phase": "Google Sheets",
+      "status": "FAILED",
+      "records": 0,
+      "skipped": 0,
+      "duration_s": 0.077,
+      "critical": false,
+      "error": "Service account credentials file not found: /path/to/your/service-account-credentials.json. Set GOOGLE_SERVICE_ACCOUNT_FILE to the correct path. [path=/path/to/your/service-account-credentials.json]"
+    },
+    {
+      "name": "Drive Upload",
+      "phase": "Google Drive",
+      "status": "FAILED",
+      "records": 0,
+      "skipped": 0,
+      "duration_s": 0.036,
+      "critical": false,
+      "error": "Missing required environment variable(s): GOOGLE_DRIVE_FOLDER_ID. Add them to your .env file. See .env.example for the full template."
+    }
+  ]
+}

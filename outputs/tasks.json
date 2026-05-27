@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "entity": "tasks",
+    "count": 1,
+    "completed_count": 1,
+    "open_count": 0,
+    "overdue_count": 0,
+    "extracted_at": "2026-05-26T14:31:49.691173+00:00",
+    "source": "kommo_api_v4"
+  },
+  "data": [
+    {
+      "id": 4927744,
+      "created_by": 10359915,
+      "updated_by": 10359915,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "entity_id": 25727020,
+      "entity_type": "leads",
+      "is_completed": true,
+      "task_type_id": 1,
+      "task_type_label": "call",
+      "text": "",
+      "duration": 0,
+      "complete_till": 1779314340,
+      "result": {
+        "text": "26/05 intento de recontacto, nc llamadas, dejo mensaje"
+      },
+      "created_at": 1779210376,
+      "updated_at": 1779802576,
+      "account_id": 31959059,
+      "created_at_iso": "2026-05-19T17:06:16+00:00",
+      "updated_at_iso": "2026-05-26T13:36:16+00:00",
+      "complete_till_iso": "2026-05-20T21:59:00+00:00",
+      "is_overdue": false
+    }
+  ]
+}

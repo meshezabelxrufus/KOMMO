@@ -1,0 +1,115 @@
+{
+  "_meta": {
+    "schema_version": "2.0",
+    "generated_at": "2026-05-26T16:58:19Z",
+    "pipeline_mode": "incremental",
+    "overall_status": "SUCCESS",
+    "total_duration_s": 3227.56
+  },
+  "phases": {
+    "Extraction": {
+      "status": "SUCCESS",
+      "steps_total": 4,
+      "steps_ok": 4,
+      "duration_s": 3162.266,
+      "records": 77524
+    },
+    "AI Export": {
+      "status": "SUCCESS",
+      "steps_total": 1,
+      "steps_ok": 1,
+      "duration_s": 0.622,
+      "records": 788
+    },
+    "Google Sheets": {
+      "status": "SUCCESS",
+      "steps_total": 1,
+      "steps_ok": 1,
+      "duration_s": 63.057,
+      "records": 77513
+    },
+    "Google Drive": {
+      "status": "FAILED",
+      "steps_total": 1,
+      "steps_ok": 0,
+      "duration_s": 0.123,
+      "records": 0
+    }
+  },
+  "steps": [
+    {
+      "name": "Pipelines",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 11,
+      "skipped": 0,
+      "duration_s": 0.493,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Leads",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 45,
+      "skipped": 0,
+      "duration_s": 0.65,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Tasks",
+      "phase": "Extraction",
+      "status": "PARTIAL",
+      "records": 0,
+      "skipped": 8,
+      "duration_s": 0.428,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Chats & Messages",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 77468,
+      "skipped": 0,
+      "duration_s": 3160.695,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Daily Export",
+      "phase": "AI Export",
+      "status": "SUCCESS",
+      "records": 788,
+      "skipped": 0,
+      "duration_s": 0.622,
+      "critical": false,
+      "error": null,
+      "export_date": "2026-05-26",
+      "total_leads": 157,
+      "total_messages": 788
+    },
+    {
+      "name": "Sheets Sync",
+      "phase": "Google Sheets",
+      "status": "SUCCESS",
+      "records": 77513,
+      "skipped": 0,
+      "duration_s": 63.057,
+      "critical": false,
+      "error": null,
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/16ii02kNP5QpbnHMdjFoi_-cyBlehf85tBHD0x9njsfI/edit"
+    },
+    {
+      "name": "Drive Upload",
+      "phase": "Google Drive",
+      "status": "FAILED",
+      "records": 0,
+      "skipped": 0,
+      "duration_s": 0.123,
+      "critical": false,
+      "error": "\"Attempt to overwrite 'filename' in LogRecord\""
+    }
+  ]
+}

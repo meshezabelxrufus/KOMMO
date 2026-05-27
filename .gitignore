@@ -41,15 +41,15 @@ htmlcov/
 *.swo
 .DS_Store
 
-# Output data — runtime generated, not source code
-outputs/*.json
+# Output data — committed for client demo
+# outputs/*.json
 outputs/data/*.json
 outputs/errors/*.json
 
-# Logs — runtime generated
-logs/*.log
-logs/*.log.*
-logs/analytics_*.json
+# Logs — committed for client demo
+# logs/*.log
+# logs/*.log.*
+# logs/analytics_*.json
 
 # Daily AI exports — generated data, not source code
 daily_exports/*.json

@@ -1,0 +1,4305 @@
+{
+  "_meta": {
+    "entity": "leads",
+    "count": 45,
+    "extracted_at": "2026-05-26T16:05:44.295436+00:00",
+    "source": "kommo_api_v4"
+  },
+  "data": [
+    {
+      "id": 25898536,
+      "name": "Typeform 01KSG9NJX14A03QG9KG30HNNHB",
+      "pipeline_id": 13319963,
+      "status_id": 102721751,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779737220,
+      "updated_at": 1779805153,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 590708,
+          "field_name": "utm_content",
+          "field_code": "UTM_CONTENT",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "SoloKW"
+            }
+          ]
+        },
+        {
+          "field_id": 590710,
+          "field_name": "utm_medium",
+          "field_code": "UTM_MEDIUM",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "cpc"
+            }
+          ]
+        },
+        {
+          "field_id": 590712,
+          "field_name": "utm_campaign",
+          "field_code": "UTM_CAMPAIGN",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "TheLiftPmaxGeneal"
+            }
+          ]
+        },
+        {
+          "field_id": 590714,
+          "field_name": "utm_source",
+          "field_code": "UTM_SOURCE",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "google"
+            }
+          ]
+        },
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "algún procedimiento de nuestra clínica"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Cirugía de pecho",
+              "enum_id": 929071,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-25T19:27:00+00:00",
+      "updated_at_iso": "2026-05-26T14:19:13+00:00"
+    },
+    {
+      "id": 25901082,
+      "name": "Fatima Bou - Mike Aumento Pecho",
+      "pipeline_id": 13319963,
+      "status_id": 102721747,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779786656,
+      "updated_at": 1779805431,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 590712,
+          "field_name": "utm_campaign",
+          "field_code": "UTM_CAMPAIGN",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "120237825725020619"
+            }
+          ]
+        },
+        {
+          "field_id": 590714,
+          "field_name": "utm_source",
+          "field_code": "UTM_SOURCE",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "fb"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "BOFU | Potenciales | Simil nuevo + RMKT"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Mike Aumento Pecho"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "03. The Lift | BOFU | Potenciales | RMKT + Simil"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2687224714981724"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Reducción de pecho",
+              "enum_id": 936133,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1291004,
+          "field_name": "Vive en Girona",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "si",
+              "enum_id": 935902,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Reducción de pecho"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-26T09:10:56+00:00",
+      "updated_at_iso": "2026-05-26T14:23:51+00:00"
+    },
+    {
+      "id": 25891312,
+      "name": "Ana Ramírez - 5. MIKE | BOFU | Remarketing MOFU | Imagen Pechos",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779586072,
+      "updated_at": 1779805808,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Terrassa"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1586308543501172"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The Lift | MIKE | Barcelona | Clientes potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The-Lift_MIKE_Barcelona_Clientes-Potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "5. MIKE | BOFU | Remarketing MOFU | Imagen Pechos"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mommy Makeover",
+              "enum_id": 926927,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-24T01:27:52+00:00",
+      "updated_at_iso": "2026-05-26T14:30:08+00:00"
+    },
+    {
+      "id": 25891950,
+      "name": "Lead #25891950",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779618532,
+      "updated_at": 1779805993,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-24T10:28:52+00:00",
+      "updated_at_iso": "2026-05-26T14:33:13+00:00"
+    },
+    {
+      "id": 25829894,
+      "name": "Lead #25829894",
+      "pipeline_id": 7677959,
+      "status_id": 143,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779198909,
+      "updated_at": 1779806200,
+      "closed_at": 1779805777,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Cirugía genital",
+              "enum_id": 929069,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "labioplastia"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-19T13:55:09+00:00",
+      "updated_at_iso": "2026-05-26T14:36:40+00:00"
+    },
+    {
+      "id": 25890876,
+      "name": "Maria Valenzuela - Mike | Video Caso Mommy Makeover",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779576631,
+      "updated_at": 1779806347,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Sant Feliu De Llobregat"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "857569650729812"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "MommyMakeover | IG |  Dic25"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Mommy Makeover AA |  Videos Mike IG | Dic 25"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Mike | Video Caso Mommy Makeover"
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-23T22:50:31+00:00",
+      "updated_at_iso": "2026-05-26T14:39:07+00:00"
+    },
+    {
+      "id": 25896764,
+      "name": "Typeform 01KSFRYFZDFQES19TE6VB9PZGM",
+      "pipeline_id": 13319963,
+      "status_id": 102721755,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779719686,
+      "updated_at": 1779806464,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Sandra"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-25T14:34:46+00:00",
+      "updated_at_iso": "2026-05-26T14:41:04+00:00"
+    },
+    {
+      "id": 25890714,
+      "name": "Rafi - Mike | Video Caso Mommy Makeover",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779572981,
+      "updated_at": 1779806475,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Martorell"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1979547129592817"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "MommyMakeover | IG |  Dic25"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Mommy Makeover AA |  Videos Mike IG | Dic 25"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Mike | Video Caso Mommy Makeover"
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-23T21:49:41+00:00",
+      "updated_at_iso": "2026-05-26T14:41:15+00:00"
+    },
+    {
+      "id": 25890596,
+      "name": "Typeform Mike - 01KSBB3GGAJMNP6XB8WTNZ5XDR",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779570953,
+      "updated_at": 1779806576,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1290573,
+          "field_name": "Fuente",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Google"
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1285305,
+          "field_name": "Enlace Félix",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/recepcionclinicabelba?sfid=25890596"
+            }
+          ]
+        },
+        {
+          "field_id": 1285309,
+          "field_name": "Enlace Mike",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/drdewevercirugiaplastica?sfid=25890596"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-23T21:15:53+00:00",
+      "updated_at_iso": "2026-05-26T14:42:56+00:00"
+    },
+    {
+      "id": 25891212,
+      "name": "mango - 5. MIKE | BOFU | Remarketing MOFU | Imagen Pechos",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779583279,
+      "updated_at": 1779806602,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Albacete"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "lo_antes_posible"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1038679432152508"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The Lift | MIKE | Barcelona | Clientes potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The-Lift_MIKE_Barcelona_Clientes-Potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "5. MIKE | BOFU | Remarketing MOFU | Imagen Pechos"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-24T00:41:19+00:00",
+      "updated_at_iso": "2026-05-26T14:43:22+00:00"
+    },
+    {
+      "id": 25888956,
+      "name": "Maria Valenzuela - 3. FELIX | BOFU | Reseñas Felix.mp4",
+      "pipeline_id": 11231784,
+      "status_id": 143,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779541093,
+      "updated_at": 1779806793,
+      "closed_at": 1779556857,
+      "price": 0,
+      "loss_reason_id": 33297288,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "846318768023962"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "3. The Lift | FELIX | BOFU | Clientes potenciales | Adv+"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | BOFU Remarketing MOFU | Cita Asistida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "3. FELIX | BOFU | Reseñas Felix.mp4"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mommy Makeover",
+              "enum_id": 926927,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-23T12:58:13+00:00",
+      "updated_at_iso": "2026-05-26T14:46:33+00:00"
+    },
+    {
+      "id": 25889716,
+      "name": "Ariadna Martin - Preservé | Nuevo",
+      "pipeline_id": 7677959,
+      "status_id": 85775856,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779555119,
+      "updated_at": 1779806885,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "en_3–6_meses"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2066890297511928"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The Lift | Preservé | Mayo 25"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Preservé | AA + Similar + Rmkt"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Preservé | Nuevo"
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Pechos",
+              "enum_id": 926921,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-23T16:51:59+00:00",
+      "updated_at_iso": "2026-05-26T14:48:05+00:00"
+    },
+    {
+      "id": 25816951,
+      "name": "Sandra Milena Ortiz Peña - 5. MIKE | BOFU | Remarketing MOFU | Imagen Pechos",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779048124,
+      "updated_at": 1779807101,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Barcelona"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "966752149614071"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The Lift | MIKE | Barcelona | Clientes potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The-Lift_MIKE_Barcelona_Clientes-Potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "5. MIKE | BOFU | Remarketing MOFU | Imagen Pechos"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-17T20:02:04+00:00",
+      "updated_at_iso": "2026-05-26T14:51:41+00:00"
+    },
+    {
+      "id": 25896902,
+      "name": "Lead #25896902",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779720703,
+      "updated_at": 1779807263,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-25T14:51:43+00:00",
+      "updated_at_iso": "2026-05-26T14:54:23+00:00"
+    },
+    {
+      "id": 25185736,
+      "name": "Lead #25185736",
+      "pipeline_id": 7677959,
+      "status_id": 70415539,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1771510290,
+      "updated_at": 1779807459,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Pechos",
+              "enum_id": 926921,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-02-19T14:11:30+00:00",
+      "updated_at_iso": "2026-05-26T14:57:39+00:00"
+    },
+    {
+      "id": 24995018,
+      "name": "Comercial Diario",
+      "pipeline_id": 7677959,
+      "status_id": 143,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1770213826,
+      "updated_at": 1779807518,
+      "closed_at": 1770239005,
+      "price": 0,
+      "loss_reason_id": 22836663,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-02-04T14:03:46+00:00",
+      "updated_at_iso": "2026-05-26T14:58:38+00:00"
+    },
+    {
+      "id": 25901302,
+      "name": "Karol Zapata Arias - FELIX | Imagen | Pechos - Copia",
+      "pipeline_id": 11231784,
+      "status_id": 86187556,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779792306,
+      "updated_at": 1779807743,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "en_los_próximos_1–3_meses"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1332413695455071"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-26T10:45:06+00:00",
+      "updated_at_iso": "2026-05-26T15:02:23+00:00"
+    },
+    {
+      "id": 25901758,
+      "name": "José payo Rodríguez - FELIX | Imagen | Pechos - Copia",
+      "pipeline_id": 11231784,
+      "status_id": 143,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779800227,
+      "updated_at": 1779807900,
+      "closed_at": 1779807896,
+      "price": 0,
+      "loss_reason_id": 18327059,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "lo_antes_posible"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1695499308464486"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-26T12:57:07+00:00",
+      "updated_at_iso": "2026-05-26T15:05:00+00:00"
+    },
+    {
+      "id": 25814953,
+      "name": "Davis Jack Avellaneda Martinez - 1. The Lift | BELBA | Clientes Potenciales | Liposucción | Cita Asistida | Lipo HD",
+      "pipeline_id": 10511808,
+      "status_id": 87565976,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779019810,
+      "updated_at": 1779807932,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "en_3–6_meses"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1462537491724140"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "7. The Lift | BELBA | BOFU | Clientes Potenciales | Liposucción"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "7. The Lift | BELBA | Clientes Potenciales | Liposucción | Kommo - Asistió Cita | Intereses"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1. The Lift | BELBA | Clientes Potenciales | Liposucción | Cita Asistida | Lipo HD"
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "abdominoplastia"
+            }
+          ]
+        },
+        {
+          "field_id": 1272072,
+          "field_name": "Cerró Cita",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Laura Torrano",
+              "enum_id": 937128,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1291930,
+          "field_name": "Enlace Laura Torrano",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/dratorranocalendly?sfid=25814953"
+            }
+          ]
+        },
+        {
+          "field_id": 1290457,
+          "field_name": "Referido",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "No",
+              "enum_id": 935311,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290505,
+          "field_name": "Agenda",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Dra. Laura Torrano - Centro Médico Teknon",
+              "enum_id": 937190,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290507,
+          "field_name": "Tipo Cita",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "physical",
+              "enum_id": 935367,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290515,
+          "field_name": "Fecha",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2026-05-27T16:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "field_id": 1290661,
+          "field_name": "Fecha de Agenda",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779734102
+            }
+          ]
+        },
+        {
+          "field_id": 1290767,
+          "field_name": "Fecha Cita",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779897600
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-17T12:10:10+00:00",
+      "updated_at_iso": "2026-05-26T15:05:32+00:00"
+    },
+    {
+      "id": 25774424,
+      "name": "Eva Redondo Perea - 1. The Lift | BELBA | Clientes Potenciales | Liposucción | Cita Asistida | Lipo HD",
+      "pipeline_id": 7677959,
+      "status_id": 70415539,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1778533467,
+      "updated_at": 1779807962,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Sabadell"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "lo_antes_posible"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2090638245213194"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "7. The Lift | BELBA | BOFU | Clientes Potenciales | Liposucción"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "7. The Lift | BELBA | Clientes Potenciales | Liposucción | Kommo - Asistió Cita | Intereses"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1. The Lift | BELBA | Clientes Potenciales | Liposucción | Cita Asistida | Lipo HD"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Liposucción",
+              "enum_id": 936137,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-11T21:04:27+00:00",
+      "updated_at_iso": "2026-05-26T15:06:02+00:00"
+    },
+    {
+      "id": 25874096,
+      "name": "Typeform 01KS4TFKJ0N31FYJRG7FB67NYS",
+      "pipeline_id": 13319963,
+      "status_id": 104803755,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779352196,
+      "updated_at": 1779808057,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 590708,
+          "field_name": "utm_content",
+          "field_code": "UTM_CONTENT",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "SoloKW"
+            }
+          ]
+        },
+        {
+          "field_id": 590710,
+          "field_name": "utm_medium",
+          "field_code": "UTM_MEDIUM",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "cpc"
+            }
+          ]
+        },
+        {
+          "field_id": 590712,
+          "field_name": "utm_campaign",
+          "field_code": "UTM_CAMPAIGN",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "TheLiftPmaxGeneal"
+            }
+          ]
+        },
+        {
+          "field_id": 590714,
+          "field_name": "utm_source",
+          "field_code": "UTM_SOURCE",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "google"
+            }
+          ]
+        },
+        {
+          "field_id": 1290505,
+          "field_name": "Agenda",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Medics",
+              "enum_id": 938980,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290507,
+          "field_name": "Tipo Cita",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "physical",
+              "enum_id": 935367,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290515,
+          "field_name": "Fecha",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2026-05-26T14:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "field_id": 1290661,
+          "field_name": "Fecha de Agenda",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779736694
+            }
+          ]
+        },
+        {
+          "field_id": 1290767,
+          "field_name": "Fecha Cita",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779804000
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-21T08:29:56+00:00",
+      "updated_at_iso": "2026-05-26T15:07:37+00:00"
+    },
+    {
+      "id": 25901540,
+      "name": "Typeform 01KSJ2D0JV0MXQR49VA4YT7PPD",
+      "pipeline_id": 13319963,
+      "status_id": 102721751,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779796708,
+      "updated_at": 1779808461,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 590708,
+          "field_name": "utm_content",
+          "field_code": "UTM_CONTENT",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "SoloKW"
+            }
+          ]
+        },
+        {
+          "field_id": 590710,
+          "field_name": "utm_medium",
+          "field_code": "UTM_MEDIUM",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "cpc"
+            }
+          ]
+        },
+        {
+          "field_id": 590712,
+          "field_name": "utm_campaign",
+          "field_code": "UTM_CAMPAIGN",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "TheLiftPmaxGeneal"
+            }
+          ]
+        },
+        {
+          "field_id": 590714,
+          "field_name": "utm_source",
+          "field_code": "UTM_SOURCE",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "google"
+            }
+          ]
+        },
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Abril"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Rinoplastia",
+              "enum_id": 936139,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-26T11:58:28+00:00",
+      "updated_at_iso": "2026-05-26T15:14:21+00:00"
+    },
+    {
+      "id": 25902520,
+      "name": "Typeform 01KSJDPG9MPPR6QF4EXVJCFB4T",
+      "pipeline_id": 13319963,
+      "status_id": 102724151,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779808552,
+      "updated_at": 1779808635,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "test"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-26T15:15:52+00:00",
+      "updated_at_iso": "2026-05-26T15:17:15+00:00"
+    },
+    {
+      "id": 25892130,
+      "name": "María soledad Moreno roca - 3. MIKE | BOFU | Testimonio Mike MOmmy.mov",
+      "pipeline_id": 7677959,
+      "status_id": 70415539,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779623502,
+      "updated_at": 1779808941,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Barcelona"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2430892597333799"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The Lift | MIKE | Barcelona | Clientes potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The-Lift_MIKE_Barcelona_Clientes-Potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "3. MIKE | BOFU | Testimonio Mike MOmmy.mov"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Abdominoplastia",
+              "enum_id": 926923,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-24T11:51:42+00:00",
+      "updated_at_iso": "2026-05-26T15:22:21+00:00"
+    },
+    {
+      "id": 25902566,
+      "name": "Typeform 01KSJE18N64YXKVW62AF52KY7J",
+      "pipeline_id": 13319963,
+      "status_id": 102724151,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779808905,
+      "updated_at": 1779808996,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "test"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-26T15:21:45+00:00",
+      "updated_at_iso": "2026-05-26T15:23:16+00:00"
+    },
+    {
+      "id": 25883198,
+      "name": "Abl - FELIX | Imagen | Pechos - Copia",
+      "pipeline_id": 11231784,
+      "status_id": 143,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779468811,
+      "updated_at": 1779809014,
+      "closed_at": 1779809011,
+      "price": 0,
+      "loss_reason_id": 18327059,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2219559702119658"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-22T16:53:31+00:00",
+      "updated_at_iso": "2026-05-26T15:23:34+00:00"
+    },
+    {
+      "id": 25883210,
+      "name": "Abl - FELIX | Imagen | Pechos - Copia",
+      "pipeline_id": 11231784,
+      "status_id": 143,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779468824,
+      "updated_at": 1779809226,
+      "closed_at": 1779809223,
+      "price": 0,
+      "loss_reason_id": 18327059,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2219559702119658"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-22T16:53:44+00:00",
+      "updated_at_iso": "2026-05-26T15:27:06+00:00"
+    },
+    {
+      "id": 25896826,
+      "name": "Jess - 3. MIKE | BOFU | Testimonio Mike MOmmy.mov",
+      "pipeline_id": 7677959,
+      "status_id": 62386823,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779720215,
+      "updated_at": 1779809239,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Reus, países bajos"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "en_3–6_meses"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1449469936943789"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The Lift | MIKE | Barcelona | Clientes potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The-Lift_MIKE_Barcelona_Clientes-Potenciales"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "3. MIKE | BOFU | Testimonio Mike MOmmy.mov"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Abdominoplastia",
+              "enum_id": 926923,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-25T14:43:35+00:00",
+      "updated_at_iso": "2026-05-26T15:27:19+00:00"
+    },
+    {
+      "id": 25892950,
+      "name": "Maria Angeles Aragón Diez - Testimonio Pechos 3 - Copia",
+      "pipeline_id": 13319963,
+      "status_id": 143,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779641454,
+      "updated_at": 1779809270,
+      "closed_at": 1779808566,
+      "price": 0,
+      "loss_reason_id": 18327059,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 590712,
+          "field_name": "utm_campaign",
+          "field_code": "UTM_CAMPAIGN",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "120237825725020619"
+            }
+          ]
+        },
+        {
+          "field_id": 590714,
+          "field_name": "utm_source",
+          "field_code": "UTM_SOURCE",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "ig"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The Lift| Lead Forms | LAL Type+IG"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Testimonio Pechos 3 - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "03. The Lift | BOFU | Potenciales | RMKT + Simil"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "993918439692903"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1291004,
+          "field_name": "Vive en Girona",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "si",
+              "enum_id": 935902,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Aumento de pecho"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-24T16:50:54+00:00",
+      "updated_at_iso": "2026-05-26T15:27:50+00:00"
+    },
+    {
+      "id": 25882722,
+      "name": "Valentina Allison Trujillo - FELIX | Imagen | Pechos - Copia",
+      "pipeline_id": 11231784,
+      "status_id": 86187620,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779464174,
+      "updated_at": 1779809361,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "en_3–6_meses"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1333914498694574"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-22T15:36:14+00:00",
+      "updated_at_iso": "2026-05-26T15:29:21+00:00"
+    },
+    {
+      "id": 25817985,
+      "name": "Maria Gabriela Morales Berti - Preservé | Nuevo",
+      "pipeline_id": 10511808,
+      "status_id": 87565976,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779062008,
+      "updated_at": 1779809396,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Barcelona"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "3534168880073540"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "The Lift | Preservé | Mayo 25"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Preservé | AA + Similar + Rmkt"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Preservé | Nuevo"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1286767,
+          "field_name": "Enlace Marel",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/recepcionclinicabelba/dra-gomez?sfid=25817985"
+            }
+          ]
+        },
+        {
+          "field_id": 1290457,
+          "field_name": "Referido",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "No",
+              "enum_id": 935311,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290505,
+          "field_name": "Agenda",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Dra. Marel Gómez - Clínica Belba",
+              "enum_id": 935363,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290507,
+          "field_name": "Tipo Cita",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "physical",
+              "enum_id": 935367,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290515,
+          "field_name": "Fecha",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2026-05-28T10:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "field_id": 1290661,
+          "field_name": "Fecha de Agenda",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779199784
+            }
+          ]
+        },
+        {
+          "field_id": 1290767,
+          "field_name": "Fecha Cita",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779962400
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-17T23:53:28+00:00",
+      "updated_at_iso": "2026-05-26T15:29:56+00:00"
+    },
+    {
+      "id": 25883212,
+      "name": "Abl - FELIX | Imagen | Pechos - Copia",
+      "pipeline_id": 11231784,
+      "status_id": 86187620,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779468826,
+      "updated_at": 1779809420,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2219559702119658"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-22T16:53:46+00:00",
+      "updated_at_iso": "2026-05-26T15:30:20+00:00"
+    },
+    {
+      "id": 25886868,
+      "name": "Erika Palacios - Publicacion Mommy makeover Felix",
+      "pipeline_id": 11231784,
+      "status_id": 86187620,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779485310,
+      "updated_at": 1779809475,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "lo_antes_posible"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1301247038852871"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Lift | CP | Abdomino | En26"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Felix Advantage + Similar + Rmkt"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Publicacion Mommy makeover Felix"
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-22T21:28:30+00:00",
+      "updated_at_iso": "2026-05-26T15:31:15+00:00"
+    },
+    {
+      "id": 25759000,
+      "name": "Typeform 01KR3TB40H249BDYWYHAB7908Z",
+      "pipeline_id": 13319963,
+      "status_id": 143,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1778244753,
+      "updated_at": 1779809478,
+      "closed_at": 1778335014,
+      "price": 0,
+      "loss_reason_id": 22836663,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": null,
+      "tags": null,
+      "created_at_iso": "2026-05-08T12:52:33+00:00",
+      "updated_at_iso": "2026-05-26T15:31:18+00:00"
+    },
+    {
+      "id": 25883200,
+      "name": "Abl - FELIX | Imagen | Pechos - Copia",
+      "pipeline_id": 11231784,
+      "status_id": 86187620,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779468813,
+      "updated_at": 1779809585,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "aún_estoy_evaluando,_no_tengo_fecha_definida"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2219559702119658"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-22T16:53:33+00:00",
+      "updated_at_iso": "2026-05-26T15:33:05+00:00"
+    },
+    {
+      "id": 25403584,
+      "name": "Solicitud CITA  - 01KM5GZ8C9TE34AWQ20AZGHT52",
+      "pipeline_id": 11213472,
+      "status_id": 86049184,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1774007072,
+      "updated_at": 1779809836,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Cirugía facial",
+              "enum_id": 929067,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1285305,
+          "field_name": "Enlace Félix",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/recepcionclinicabelba?sfid=25403584"
+            }
+          ]
+        },
+        {
+          "field_id": 1285309,
+          "field_name": "Enlace Mike",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/drdewevercirugiaplastica?sfid=25403584"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-03-20T11:44:32+00:00",
+      "updated_at_iso": "2026-05-26T15:37:16+00:00"
+    },
+    {
+      "id": 25887580,
+      "name": "Lead #25887580",
+      "pipeline_id": 11231784,
+      "status_id": 86187620,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779496130,
+      "updated_at": 1779809975,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "lo_antes_posible"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1319347590139446"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-23T00:28:50+00:00",
+      "updated_at_iso": "2026-05-26T15:39:35+00:00"
+    },
+    {
+      "id": 25901810,
+      "name": "Susi - FELIX | Imagen | Pechos - Copia",
+      "pipeline_id": 10511808,
+      "status_id": 87565976,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779800784,
+      "updated_at": 1779810111,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "lo_antes_posible"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1685174689170123"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 The Lift | FELIX | Lead-Forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "20260507 FELIX | Lead-forms"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "FELIX | Imagen | Pechos - Copia"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290457,
+          "field_name": "Referido",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "No",
+              "enum_id": 935311,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Burgos"
+            }
+          ]
+        },
+        {
+          "field_id": 1286767,
+          "field_name": "Enlace Marel",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/recepcionclinicabelba/dra-gomez?sfid=25901810"
+            }
+          ]
+        },
+        {
+          "field_id": 1290505,
+          "field_name": "Agenda",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Dra. Marel Gómez - Clínica Belba",
+              "enum_id": 935363,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290507,
+          "field_name": "Tipo Cita",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "google_conference",
+              "enum_id": 935365,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290515,
+          "field_name": "Fecha",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2026-05-27T10:30:00.000Z"
+            }
+          ]
+        },
+        {
+          "field_id": 1290661,
+          "field_name": "Fecha de Agenda",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779809647
+            }
+          ]
+        },
+        {
+          "field_id": 1290767,
+          "field_name": "Fecha Cita",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779877800
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-26T13:06:24+00:00",
+      "updated_at_iso": "2026-05-26T15:41:51+00:00"
+    },
+    {
+      "id": 25899398,
+      "name": "Lead #25899398",
+      "pipeline_id": 7677959,
+      "status_id": 84689908,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779747112,
+      "updated_at": 1779810540,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Lo antes posible"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Madrid"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-25T22:11:52+00:00",
+      "updated_at_iso": "2026-05-26T15:49:00+00:00"
+    },
+    {
+      "id": 25759374,
+      "name": "Susana Martos Santiago",
+      "pipeline_id": 10511808,
+      "status_id": 87565976,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1778247783,
+      "updated_at": 1779810612,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1284677,
+          "field_name": "Enlace Agenda",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/drdewevercirugiaplastica/clinica-belba?sfid=25759374"
+            }
+          ]
+        },
+        {
+          "field_id": 682420,
+          "field_name": "Tipo de cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Preservé"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Aumento de pecho",
+              "enum_id": 936131,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290457,
+          "field_name": "Referido",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "No",
+              "enum_id": 935311,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290505,
+          "field_name": "Agenda",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Dr. Mike Dewever - Clínica Belba",
+              "enum_id": 935361,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290507,
+          "field_name": "Tipo Cita",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "physical",
+              "enum_id": 935367,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290515,
+          "field_name": "Fecha",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2026-05-26T14:45:00.000Z"
+            }
+          ]
+        },
+        {
+          "field_id": 1290661,
+          "field_name": "Fecha de Agenda",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1778254831
+            }
+          ]
+        },
+        {
+          "field_id": 1290767,
+          "field_name": "Fecha Cita",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779806700
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "evaluando fecha"
+            }
+          ]
+        },
+        {
+          "field_id": 1272072,
+          "field_name": "Cerró Cita",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike Dewever",
+              "enum_id": 919656,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-08T13:43:03+00:00",
+      "updated_at_iso": "2026-05-26T15:50:12+00:00"
+    },
+    {
+      "id": 25897630,
+      "name": "Lead #25897630",
+      "pipeline_id": 7677959,
+      "status_id": 84689908,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779727215,
+      "updated_at": 1779810692,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Elevación de pecho",
+              "enum_id": 936135,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 974938,
+          "field_name": "Ciudad",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Santander"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-25T16:40:15+00:00",
+      "updated_at_iso": "2026-05-26T15:51:32+00:00"
+    },
+    {
+      "id": 25902694,
+      "name": "Typeform General - 01KSJFCQX4S9HDJGSFXTCMPGG2",
+      "pipeline_id": 7677959,
+      "status_id": 84689908,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779810331,
+      "updated_at": 1779810891,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 590714,
+          "field_name": "utm_source",
+          "field_code": "UTM_SOURCE",
+          "field_type": "tracking_data",
+          "values": [
+            {
+              "value": "google"
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Cirugía de pecho",
+              "enum_id": 929071,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Mike",
+              "enum_id": 935377,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290573,
+          "field_name": "Fuente",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Google"
+            }
+          ]
+        },
+        {
+          "field_id": 1285305,
+          "field_name": "Enlace Félix",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/recepcionclinicabelba?sfid=25902694"
+            }
+          ]
+        },
+        {
+          "field_id": 1285309,
+          "field_name": "Enlace Mike",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/drdewevercirugiaplastica?sfid=25902694"
+            }
+          ]
+        },
+        {
+          "field_id": 1286767,
+          "field_name": "Enlace Marel",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/recepcionclinicabelba/dra-gomez?sfid=25902694"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-26T15:45:31+00:00",
+      "updated_at_iso": "2026-05-26T15:54:51+00:00"
+    },
+    {
+      "id": 25892052,
+      "name": "Yumi Vasquez - 20260511_Imagen-Pechos",
+      "pipeline_id": 12518920,
+      "status_id": 96693768,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779621889,
+      "updated_at": 1779811095,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291004,
+          "field_name": "Vive en Girona",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "si",
+              "enum_id": 935902,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1291006,
+          "field_name": "CP",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "08500"
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-24T11:24:49+00:00",
+      "updated_at_iso": "2026-05-26T15:58:15+00:00"
+    },
+    {
+      "id": 25877176,
+      "name": "Lidice Fuentes - 3. BELBA | BOFU | Form. Dra Marel | Aumento de pecho - Testimonios de pacientes.mp4",
+      "pipeline_id": 10511808,
+      "status_id": 80604476,
+      "responsible_user_id": 10606743,
+      "group_id": 0,
+      "created_at": 1779386340,
+      "updated_at": 1779811452,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "1294359442804700"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "6. The Lift | BELBA | BOFU | Clientes Potenciales | Adv+ | Dra. Marel Gómez"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "BELBA | BOFU | Dra. Marel Gomez | Remarketing MOFU"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "3. BELBA | BOFU | Form. Dra Marel | Aumento de pecho - Testimonios de pacientes.mp4"
+            }
+          ]
+        },
+        {
+          "field_id": 1286767,
+          "field_name": "Enlace Marel",
+          "field_code": null,
+          "field_type": "url",
+          "values": [
+            {
+              "value": "https://calendly.com/recepcionclinicabelba/dra-gomez?sfid=25877176"
+            }
+          ]
+        },
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "en_los_próximos_1–3_meses"
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Marel",
+              "enum_id": 935381,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290457,
+          "field_name": "Referido",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "No",
+              "enum_id": 935311,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290505,
+          "field_name": "Agenda",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Dra. Marel Gómez - Clínica Belba",
+              "enum_id": 935363,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290507,
+          "field_name": "Tipo Cita",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "physical",
+              "enum_id": 935367,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1290515,
+          "field_name": "Fecha",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2026-06-11T08:00:00.000Z"
+            }
+          ]
+        },
+        {
+          "field_id": 1290661,
+          "field_name": "Fecha de Agenda",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1779389655
+            }
+          ]
+        },
+        {
+          "field_id": 1290767,
+          "field_name": "Fecha Cita",
+          "field_code": null,
+          "field_type": "date_time",
+          "values": [
+            {
+              "value": 1781164800
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-21T17:59:00+00:00",
+      "updated_at_iso": "2026-05-26T16:04:12+00:00"
+    },
+    {
+      "id": 25888224,
+      "name": "Sandra Monsalve - Publicacion Mommy makeover Felix",
+      "pipeline_id": 11231784,
+      "status_id": 86187620,
+      "responsible_user_id": 10359915,
+      "group_id": 0,
+      "created_at": 1779515751,
+      "updated_at": 1779811491,
+      "closed_at": null,
+      "price": 0,
+      "loss_reason_id": null,
+      "is_deleted": false,
+      "score": null,
+      "account_id": 31959059,
+      "custom_fields_values": [
+        {
+          "field_id": 1291483,
+          "field_name": "Plazo Cirugía",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "3-6 meses"
+            }
+          ]
+        },
+        {
+          "field_id": 1291654,
+          "field_name": "meta_lead_id",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "2805721736445476"
+            }
+          ]
+        },
+        {
+          "field_id": 1291522,
+          "field_name": "Campaña",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Lift | CP | Abdomino | En26"
+            }
+          ]
+        },
+        {
+          "field_id": 1291524,
+          "field_name": "Grupo de Anuncios",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Felix Advantage + Similar + Rmkt"
+            }
+          ]
+        },
+        {
+          "field_id": 1291526,
+          "field_name": "Anuncio",
+          "field_code": null,
+          "field_type": "text",
+          "values": [
+            {
+              "value": "Publicacion Mommy makeover Felix"
+            }
+          ]
+        },
+        {
+          "field_id": 1290517,
+          "field_name": "Embudo Inicial",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Felix",
+              "enum_id": 935379,
+              "enum_code": null
+            }
+          ]
+        },
+        {
+          "field_id": 1280237,
+          "field_name": "Cirugía",
+          "field_code": null,
+          "field_type": "select",
+          "values": [
+            {
+              "value": "Liposucción",
+              "enum_id": 936137,
+              "enum_code": null
+            }
+          ]
+        }
+      ],
+      "tags": null,
+      "created_at_iso": "2026-05-23T05:55:51+00:00",
+      "updated_at_iso": "2026-05-26T16:04:51+00:00"
+    }
+  ]
+}

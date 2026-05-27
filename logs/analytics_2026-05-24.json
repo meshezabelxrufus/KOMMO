@@ -1,0 +1,80 @@
+{
+  "_meta": {
+    "schema_version": "2.0",
+    "generated_at": "2026-05-24T10:00:59Z",
+    "pipeline_mode": "incremental",
+    "overall_status": "SUCCESS",
+    "total_duration_s": 3.69
+  },
+  "phases": {
+    "Extraction": {
+      "status": "SUCCESS",
+      "steps_total": 4,
+      "steps_ok": 4,
+      "duration_s": 2.313,
+      "records": 211
+    },
+    "AI Export": {
+      "status": "SUCCESS",
+      "steps_total": 1,
+      "steps_ok": 1,
+      "duration_s": 0.012,
+      "records": 0
+    }
+  },
+  "steps": [
+    {
+      "name": "Pipelines",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 11,
+      "skipped": 0,
+      "duration_s": 0.421,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Leads",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 199,
+      "skipped": 0,
+      "duration_s": 1.077,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Tasks",
+      "phase": "Extraction",
+      "status": "PARTIAL",
+      "records": 1,
+      "skipped": 53,
+      "duration_s": 0.43,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Chats & Messages",
+      "phase": "Extraction",
+      "status": "SUCCESS",
+      "records": 0,
+      "skipped": 0,
+      "duration_s": 0.386,
+      "critical": true,
+      "error": null
+    },
+    {
+      "name": "Daily Export",
+      "phase": "AI Export",
+      "status": "SUCCESS",
+      "records": 0,
+      "skipped": 0,
+      "duration_s": 0.012,
+      "critical": false,
+      "error": null,
+      "export_date": "2026-05-24",
+      "total_leads": 0,
+      "total_messages": 0
+    }
+  ]
+}
