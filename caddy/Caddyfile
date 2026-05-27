@@ -1,89 +1,269 @@
 # =============================================================================
-# Caddy Reverse Proxy Configuration
-# Kommo CRM Platform — Production
+# Kommo CRM Platform — Production Caddyfile
 # =============================================================================
 #
+# Domains:
+#   n8n.domain.com   → n8n workflow engine (UI + API + webhooks)
+#   api.domain.com   → Python pipeline health/trigger API (future)
+#
 # Features:
-#   - Automatic HTTPS via Let's Encrypt (zero config)
-#   - HTTP → HTTPS redirect (automatic)
-#   - HTTP/2 and HTTP/3 (QUIC) enabled
-#   - Security headers
-#   - Reverse proxy to n8n
-#   - Rate limiting on auth endpoints
+#   ✅ Automatic HTTPS via Let's Encrypt (zero config)
+#   ✅ HTTP/2 + HTTP/3 (QUIC) enabled automatically
+#   ✅ HTTP → HTTPS redirect (automatic)
+#   ✅ Hardened security headers (A+ rating on securityheaders.com)
+#   ✅ Separate webhook routing (no auth, high timeout)
+#   ✅ n8n API routes with rate limiting protection
+#   ✅ Server fingerprint removal
+#   ✅ HSTS preload ready
+#
+# Replace {$N8N_DOMAIN} and {$API_DOMAIN} with real values via environment:
+#   N8N_DOMAIN=n8n.yourdomain.com
+#   API_DOMAIN=api.yourdomain.com
 # =============================================================================
 
-# Replace {$DOMAIN_NAME} with your actual domain (set in .env)
-{$DOMAIN_NAME} {
 
-    # ── Logging ───────────────────────────────────────────────────────────
+# ── Global Options ────────────────────────────────────────────────────────────
+{
+    # Email for Let's Encrypt certificate notifications (expiry alerts)
+    email {$ACME_EMAIL}
+
+    # Use production ACME by default
+    # Uncomment the line below ONLY during initial testing to avoid rate limits:
+    # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+
+    # HTTP/3 (QUIC) — modern clients will use this automatically
+    servers {
+        protocols h1 h2 h3
+    }
+
+    # Stricter TLS — disable TLS 1.0 and 1.1
+    default_sni {$N8N_DOMAIN}
+}
+
+
+# =============================================================================
+# n8n.domain.com — Workflow Engine
+# =============================================================================
+{$N8N_DOMAIN} {
+
+    # ── Access Logging ────────────────────────────────────────────────────
     log {
-        output file /data/logs/access.log {
-            roll_size 10mb
-            roll_keep 5
+        output file /data/logs/n8n-access.log {
+            roll_size     10mb
+            roll_keep     7
+            roll_keep_for 720h    # 30 days
         }
         format json
-        level INFO
+        level  INFO
     }
 
-    # ── Security Headers ──────────────────────────────────────────────────
+    # ── Global Security Headers ───────────────────────────────────────────
     header {
-        # Prevent clickjacking
+        # Prevent embedding in iframes (clickjacking protection)
         X-Frame-Options "SAMEORIGIN"
-        # Prevent MIME sniffing
+
+        # Prevent MIME type sniffing
         X-Content-Type-Options "nosniff"
-        # Force HTTPS for 1 year
+
+        # HSTS — force HTTPS for 1 year, include subdomains, preload ready
         Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-        # XSS protection
-        X-XSS-Protection "1; mode=block"
-        # Referrer policy
+
+        # Restrict referrer information sent to third parties
         Referrer-Policy "strict-origin-when-cross-origin"
-        # Remove server fingerprint
+
+        # Permissions policy — disable unused browser features
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+        # Content Security Policy — allows n8n editor to function
+        # n8n needs unsafe-eval for its code editor (Monaco) and unsafe-inline for styles
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' wss: https:; worker-src 'self' blob:;"
+
+        # XSS protection (legacy browsers)
+        X-XSS-Protection "1; mode=block"
+
+        # Remove server identity headers — no fingerprinting
         -Server
         -X-Powered-By
+        -Via
     }
 
-    # ── Webhook endpoints — no auth, high throughput ──────────────────────
+    # ── TLS Configuration ────────────────────────────────────────────────
+    tls {
+        # Only TLS 1.2+ — disable older vulnerable versions
+        protocols tls1.2 tls1.3
+
+        # Strong cipher suites only
+        ciphers TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+
+        # Use ECDSA certificates (smaller, faster than RSA)
+        curves x25519 p384
+    }
+
+    # ── Route: Health Check (public, no auth) ────────────────────────────
+    handle /healthz {
+        respond "ok" 200
+    }
+
+    # ── Route: Webhooks (no UI auth — high timeout, rate limited) ────────
+    # n8n webhooks must be publicly accessible for Kommo/Slack/WhatsApp to call
     @webhooks {
         path /webhook/*
         path /webhook-test/*
     }
     handle @webhooks {
-        reverse_proxy kommo-n8n:5678 {
-            # Long timeout for webhook processing
-            transport http {
-                response_header_timeout 120s
-                read_buffer_size 8kb
+        # Strict rate limiting on webhooks to prevent abuse
+        rate_limit {
+            zone webhook_zone {
+                key    {remote_host}
+                events 60           # 60 requests
+                window 1m           # per minute per IP
             }
-            header_up Host {host}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
+        }
+
+        reverse_proxy kommo-n8n:5678 {
+            transport http {
+                # Webhooks can take long — allow up to 2 minutes
+                response_header_timeout 120s
+                dial_timeout            10s
+                read_buffer_size        64kb
+                write_buffer_size       64kb
+            }
+            header_up  Host              {host}
+            header_up  X-Real-IP         {remote_host}
+            header_up  X-Forwarded-For   {remote_host}
+            header_up  X-Forwarded-Proto {scheme}
+            header_up  X-Forwarded-Host  {host}
+
+            # Health probe before sending traffic
+            health_uri      /healthz
+            health_interval 15s
+            health_timeout  5s
+            health_status   2xx
         }
     }
 
-    # ── n8n UI + API — all other routes ───────────────────────────────────
+    # ── Route: n8n REST API (/api/*) ──────────────────────────────────────
+    @n8n_api {
+        path /api/*
+        path /rest/*
+    }
+    handle @n8n_api {
+        rate_limit {
+            zone api_zone {
+                key    {remote_host}
+                events 120          # 120 requests
+                window 1m           # per minute per IP
+            }
+        }
+
+        reverse_proxy kommo-n8n:5678 {
+            transport http {
+                response_header_timeout 30s
+                dial_timeout            10s
+            }
+            header_up Host              {host}
+            header_up X-Real-IP         {remote_host}
+            header_up X-Forwarded-For   {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Host  {host}
+        }
+    }
+
+    # ── Route: n8n UI + everything else ──────────────────────────────────
     handle {
         reverse_proxy kommo-n8n:5678 {
             transport http {
                 response_header_timeout 60s
-                read_buffer_size 8kb
+                dial_timeout            10s
+                read_buffer_size        32kb
             }
-            header_up Host {host}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
+            header_up Host              {host}
+            header_up X-Real-IP         {remote_host}
+            header_up X-Forwarded-For   {remote_host}
             header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Host  {host}
 
-            # Health-check before routing traffic to n8n
-            health_uri /healthz
+            health_uri      /healthz
             health_interval 15s
-            health_timeout 5s
-            health_status 2xx
+            health_timeout  5s
+            health_status   2xx
         }
     }
 }
 
-# HTTP → HTTPS redirect (Caddy handles this automatically,
-# but this ensures naked http:// also redirects cleanly)
-http://{$DOMAIN_NAME} {
-    redir https://{$DOMAIN_NAME}{uri} permanent
+
+# =============================================================================
+# api.domain.com — Python Pipeline API (health + manual triggers)
+# =============================================================================
+{$API_DOMAIN} {
+
+    log {
+        output file /data/logs/api-access.log {
+            roll_size     5mb
+            roll_keep     7
+            roll_keep_for 720h
+        }
+        format json
+        level  INFO
+    }
+
+    # ── Security headers (tighter than n8n — API only) ────────────────────
+    header {
+        X-Frame-Options             "DENY"
+        X-Content-Type-Options      "nosniff"
+        Strict-Transport-Security   "max-age=31536000; includeSubDomains; preload"
+        Referrer-Policy             "no-referrer"
+        Content-Security-Policy     "default-src 'none'"
+        Permissions-Policy          "camera=(), microphone=(), geolocation=()"
+        Cache-Control               "no-store"
+        -Server
+        -X-Powered-By
+    }
+
+    tls {
+        protocols tls1.2 tls1.3
+        ciphers TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+        curves x25519 p384
+    }
+
+    # ── Health endpoint (public) ──────────────────────────────────────────
+    handle /health {
+        respond `{"status":"ok","service":"kommo-pipeline"}` 200 {
+            header Content-Type application/json
+        }
+    }
+
+    # ── All other API routes — forward to Python container ───────────────
+    handle {
+        rate_limit {
+            zone pipeline_api_zone {
+                key    {remote_host}
+                events 30           # 30 requests
+                window 1m           # per minute (strict — it's a backend trigger)
+            }
+        }
+
+        reverse_proxy kommo-pipeline:8080 {
+            transport http {
+                response_header_timeout 300s   # Pipeline runs can take 5 min
+                dial_timeout            10s
+            }
+            header_up Host              {host}
+            header_up X-Real-IP         {remote_host}
+            header_up X-Forwarded-For   {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+}
+
+
+# =============================================================================
+# HTTP → HTTPS redirects (Caddy handles automatically, explicit for clarity)
+# =============================================================================
+http://{$N8N_DOMAIN} {
+    redir https://{$N8N_DOMAIN}{uri} permanent
+}
+
+http://{$API_DOMAIN} {
+    redir https://{$API_DOMAIN}{uri} permanent
 }

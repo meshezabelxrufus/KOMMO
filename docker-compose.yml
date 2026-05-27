@@ -333,12 +333,19 @@ services:
       - "443:443/udp" # HTTP/3 (QUIC)
 
     environment:
-      DOMAIN_NAME: ${DOMAIN_NAME}
+      # Primary n8n domain
+      N8N_DOMAIN: ${N8N_DOMAIN}
+      # Python pipeline API domain
+      API_DOMAIN: ${API_DOMAIN}
+      # Let's Encrypt notification email
+      ACME_EMAIL: ${ACME_EMAIL}
 
     volumes:
       - /opt/kommo-platform/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+      # Caddy access logs (both domains)
+      - kommo_logs:/data/logs
 
     depends_on:
       kommo-n8n:
