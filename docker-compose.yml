@@ -176,10 +176,10 @@ services:
       # ── Network ───────────────────────────────────────────────────────────
       N8N_HOST: 0.0.0.0
       N8N_PORT: 5678
-      N8N_PROTOCOL: https
+      N8N_PROTOCOL: http
       # Public-facing URL — used for webhook URLs in workflow nodes
-      WEBHOOK_URL: https://${DOMAIN_NAME}/
-      N8N_EDITOR_BASE_URL: https://${DOMAIN_NAME}/
+      WEBHOOK_URL: http://178.105.250.18:5678/
+      N8N_EDITOR_BASE_URL: http://178.105.250.18:5678/
 
       # ── Security ──────────────────────────────────────────────────────────
       N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
@@ -218,9 +218,9 @@ services:
       # Python project root — for Execute Command nodes to call scripts
       - /opt/kommo-platform/app:/opt/kommo-platform/app:ro
 
-    # n8n is internal-only — accessed through Caddy, not direct port
-    expose:
-      - "5678"
+    # Exposing n8n directly to internet since we have no domain/Caddy
+    ports:
+      - "5678:5678"
 
     depends_on:
       postgres:
@@ -318,60 +318,3 @@ services:
       - kommo-internal
 
 
-  # ── Caddy Reverse Proxy ───────────────────────────────────────────────────
-  # Handles all inbound traffic.
-  # Automatically provisions and renews Let's Encrypt SSL certificates.
-  # n8n is never directly exposed — all traffic goes through Caddy.
-  caddy:
-    image: caddy:2-alpine
-    container_name: kommo-caddy
-    restart: unless-stopped
-
-    ports:
-      - "80:80"       # HTTP → auto-redirected to HTTPS by Caddy
-      - "443:443"     # HTTPS
-      - "443:443/udp" # HTTP/3 (QUIC)
-
-    environment:
-      # Primary n8n domain
-      N8N_DOMAIN: ${N8N_DOMAIN}
-      # Python pipeline API domain
-      API_DOMAIN: ${API_DOMAIN}
-      # Let's Encrypt notification email
-      ACME_EMAIL: ${ACME_EMAIL}
-
-    volumes:
-      - /opt/kommo-platform/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-      # Caddy access logs (both domains)
-      - kommo_logs:/data/logs
-
-    depends_on:
-      kommo-n8n:
-        condition: service_healthy
-
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
-
-    deploy:
-      resources:
-        limits:
-          cpus: "0.25"
-          memory: 64M
-        reservations:
-          cpus: "0.05"
-          memory: 16M
-
-    logging:
-      driver: json-file
-      options:
-        max-size: "5m"
-        max-file: "3"
-
-    networks:
-      - kommo-edge
