@@ -63,13 +63,8 @@ except ImportError:
 # ─────────────────────────────────────────────────────────────────────────────
 
 N8N_API_URL = "http://localhost:5678/api/v1"
-N8N_API_KEY = (
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-    ".eyJzdWIiOiIzZjZmMjdhNC02MzVjLTQ1NWItYWQzNS00YjJmNzM1YzIwZmMiLCJpc3MiOiJuOG4i"
-    "LCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiODgxYzM5MmEtYWMyMy00NDA1LWJmOTUtZmIxY2E3"
-    "OGI5ZjkzIiwiaWF0IjoxNzc4Njc1MTI3fQ.A5hIJOhfpqHy2Xk2mnZDEgeQLLcLjQxTC7HOx4S52e4"
-)
-PROJECT_DIR  = "/Users/abdulwaseyhussain/Downloads/KOMMO"
+N8N_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZjc1YWZkZC0wZjE3LTQ5YTktODljMS0xMmM1YTM4NGIwMjUiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiYzdmZjNlZjgtMDhkYy00Y2Q2LTlkOTUtMDU0MjkwYzNhMWYzIiwiaWF0IjoxNzc5ODk1NTU0fQ.UAH-vKXs0pbKEA0UU1V7noYbbRuxfeHjja8fhYMuexo"
+PROJECT_DIR  = "/opt/kommo-platform/app"
 EXPORT_DIR   = f"{PROJECT_DIR}/daily_exports"
 SUMMARY_DIR  = f"{PROJECT_DIR}/outputs/ai_summaries"
 
