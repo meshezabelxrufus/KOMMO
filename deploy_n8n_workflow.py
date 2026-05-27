@@ -730,7 +730,7 @@ def deploy(workflow: dict, activate: bool = False) -> dict:
 
     if activate:
         print("  ⚡ Activating workflow...")
-        act = requests.patch(
+        act = requests.post(
             f"{N8N_API_URL}/workflows/{wf_id}/activate",
             headers=HEADERS,
             timeout=15,
@@ -760,7 +760,7 @@ def update_existing(wf_id: str, workflow: dict, activate: bool = False) -> dict:
     print(f"  ✅ Workflow updated — id={wf_id}")
 
     if activate:
-        act = requests.patch(
+        act = requests.post(
             f"{N8N_API_URL}/workflows/{wf_id}/activate",
             headers=HEADERS,
             timeout=15,

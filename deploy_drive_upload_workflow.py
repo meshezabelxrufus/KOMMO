@@ -695,7 +695,7 @@ def update_existing(wf_id: str, workflow: dict, activate: bool = False) -> dict:
 
 def _activate(wf_id: str) -> None:
     print("  ⚡ Activating workflow...")
-    requests.patch(
+    requests.post(
         f"{N8N_API_URL}/workflows/{wf_id}/activate",
         headers=HEADERS,
         timeout=15,
