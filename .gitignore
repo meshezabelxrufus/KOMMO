@@ -63,3 +63,6 @@ kommo_*.json
 *-bdf40efd77e5.json
 service_account*.json
 credentials*.json
+secrets/*.json
+secrets/.env
+docker-compose.override.yml

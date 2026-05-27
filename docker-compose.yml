@@ -1,0 +1,370 @@
+# =============================================================================
+# Kommo CRM Automation Platform — Production Docker Compose Stack
+# =============================================================================
+#
+# Services:
+#   postgres          — PostgreSQL 16 (n8n database backend)
+#   kommo-n8n         — n8n workflow engine (fresh, client-only instance)
+#   kommo-pipeline    — Python extraction + Google integrations
+#   caddy             — Reverse proxy with automatic SSL (Let's Encrypt)
+#
+# Network Architecture:
+#   Internet → Caddy (80/443) → n8n (5678, internal)
+#   kommo-pipeline → internal network only
+#   postgres → internal network only (never exposed)
+#
+# Usage:
+#   docker compose up -d                    # Start full stack
+#   docker compose logs -f                  # Stream all logs
+#   docker compose pull && docker compose up -d   # Update images
+#   docker compose down                     # Stop (data persisted in volumes)
+#   docker compose down -v                  # ⚠️ Stop + DELETE all data
+# =============================================================================
+
+version: "3.8"
+
+# ── Named Volumes (survive container restarts and removals) ───────────────────
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/data/postgres
+
+  n8n_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/data/n8n
+
+  caddy_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/data/caddy/data
+
+  caddy_config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/data/caddy/config
+
+  kommo_outputs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/shared/outputs
+
+  kommo_daily_exports:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/shared/daily_exports
+
+  kommo_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/shared/logs
+
+  kommo_state:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/shared/state
+
+  kommo_auth:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kommo-platform/shared/auth
+
+
+# ── Networks ─────────────────────────────────────────────────────────────────
+networks:
+  # Internal network — services communicate here, never exposed to internet
+  kommo-internal:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24
+
+  # Edge network — only Caddy connects here to reach internet
+  kommo-edge:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.0.0/24
+
+
+services:
+
+  # ── PostgreSQL 16 ──────────────────────────────────────────────────────────
+  # Dedicated database for n8n — much more reliable than SQLite for production.
+  # Never exposed to the internet — only accessible on kommo-internal.
+  postgres:
+    image: postgres:16-alpine
+    container_name: kommo-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-n8n}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-n8n}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      # Performance tuning for a 4GB VPS
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    # Health check — n8n will NOT start until Postgres accepts connections
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-n8n} -d ${POSTGRES_DB:-n8n}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          cpus: "0.1"
+          memory: 64M
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "3"
+
+    networks:
+      - kommo-internal
+
+
+  # ── n8n Workflow Engine ────────────────────────────────────────────────────
+  # Fresh instance — clean slate for the Kommo client.
+  # Accessible via Caddy reverse proxy only (no direct port exposure).
+  kommo-n8n:
+    image: n8nio/n8n:latest
+    container_name: kommo-n8n
+    restart: unless-stopped
+
+    environment:
+      # ── Database (PostgreSQL) ──────────────────────────────────────────────
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB:-n8n}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER:-n8n}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+
+      # ── Network ───────────────────────────────────────────────────────────
+      N8N_HOST: 0.0.0.0
+      N8N_PORT: 5678
+      N8N_PROTOCOL: https
+      # Public-facing URL — used for webhook URLs in workflow nodes
+      WEBHOOK_URL: https://${DOMAIN_NAME}/
+      N8N_EDITOR_BASE_URL: https://${DOMAIN_NAME}/
+
+      # ── Security ──────────────────────────────────────────────────────────
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      # Basic auth to lock n8n UI behind username/password
+      N8N_BASIC_AUTH_ACTIVE: "true"
+      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER}
+      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD}
+
+      # ── Execution ─────────────────────────────────────────────────────────
+      # Allow Execute Command node (runs Python scripts)
+      NODES_EXCLUDE: "[]"
+      # Allow reading env vars inside nodes (for Slack webhook etc.)
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      # Expose relevant env vars to nodes
+      KOMMO_SLACK_WEBHOOK: ${KOMMO_SLACK_WEBHOOK}
+      KOMMO_ALERT_EMAIL_TO: ${KOMMO_ALERT_EMAIL_TO}
+
+      # ── Timezone ──────────────────────────────────────────────────────────
+      GENERIC_TIMEZONE: UTC
+      TZ: UTC
+
+      # ── Paths inside container ────────────────────────────────────────────
+      N8N_USER_FOLDER: /home/node/.n8n
+
+      # ── Execution pruning (keep DB lean) ─────────────────────────────────
+      EXECUTIONS_DATA_PRUNE: "true"
+      EXECUTIONS_DATA_MAX_AGE: 336         # 14 days in hours
+      EXECUTIONS_DATA_PRUNE_MAX_COUNT: 1000
+
+    volumes:
+      - n8n_data:/home/node/.n8n
+      # Read-only access to Python outputs (n8n can read files Python wrote)
+      - kommo_outputs:/shared/outputs:ro
+      - kommo_daily_exports:/shared/daily_exports:ro
+      - kommo_logs:/shared/logs:ro
+      # Python project root — for Execute Command nodes to call scripts
+      - /opt/kommo-platform/app:/opt/kommo-platform/app:ro
+
+    # n8n is internal-only — accessed through Caddy, not direct port
+    expose:
+      - "5678"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:5678/healthz || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 45s
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 768M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+    networks:
+      - kommo-internal
+      - kommo-edge
+
+
+  # ── Python Pipeline ────────────────────────────────────────────────────────
+  # The Kommo extraction + Google integrations backend.
+  # Runs as a long-lived container — n8n triggers it via Execute Command nodes.
+  kommo-pipeline:
+    build:
+      context: /opt/kommo-platform/app
+      dockerfile: Dockerfile
+    image: kommo-pipeline:latest
+    container_name: kommo-pipeline
+    restart: unless-stopped
+
+    env_file:
+      - /opt/kommo-platform/secrets/.env
+
+    environment:
+      # Override all paths to container mount points
+      OUTPUT_DIR: /app/outputs
+      LOG_DIR: /app/logs
+      TOKEN_STORE_PATH: /app/auth/token_store.json
+      SYNC_STATE_PATH: /app/state/sync_state.json
+      GOOGLE_SERVICE_ACCOUNT_FILE: /app/secrets/kommo-service-account.json
+      # Encoding
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      PYTHONIOENCODING: utf-8
+      TZ: UTC
+
+    volumes:
+      - kommo_outputs:/app/outputs
+      - kommo_daily_exports:/app/daily_exports
+      - kommo_logs:/app/logs
+      - kommo_state:/app/state
+      - kommo_auth:/app/auth
+      # Secrets bind-mount — read-only inside container
+      - /opt/kommo-platform/secrets:/app/secrets:ro
+
+    # Run the pipeline on startup, then the container stays alive for n8n Execute Command calls
+    command: ["python", "main.py", "--auto-incremental"]
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 60s
+      timeout: 15s
+      retries: 3
+      start_period: 20s
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+        reservations:
+          cpus: "0.1"
+          memory: 128M
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+    networks:
+      - kommo-internal
+
+
+  # ── Caddy Reverse Proxy ───────────────────────────────────────────────────
+  # Handles all inbound traffic.
+  # Automatically provisions and renews Let's Encrypt SSL certificates.
+  # n8n is never directly exposed — all traffic goes through Caddy.
+  caddy:
+    image: caddy:2-alpine
+    container_name: kommo-caddy
+    restart: unless-stopped
+
+    ports:
+      - "80:80"       # HTTP → auto-redirected to HTTPS by Caddy
+      - "443:443"     # HTTPS
+      - "443:443/udp" # HTTP/3 (QUIC)
+
+    environment:
+      DOMAIN_NAME: ${DOMAIN_NAME}
+
+    volumes:
+      - /opt/kommo-platform/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+    depends_on:
+      kommo-n8n:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 64M
+        reservations:
+          cpus: "0.05"
+          memory: 16M
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "3"
+
+    networks:
+      - kommo-edge

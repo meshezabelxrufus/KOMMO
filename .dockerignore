@@ -1,0 +1,98 @@
+# =============================================================================
+# Kommo CRM — .dockerignore
+# =============================================================================
+# Prevents secrets, caches, large data files, and development artifacts
+# from being copied into the Docker build context.
+#
+# RULE: If it's not pure source code, exclude it.
+# =============================================================================
+
+# ── Secrets & Credentials — NEVER inside an image ────────────────────────────
+.env
+.env.*
+!.env.example
+auth/token_store.json
+state/tokens.enc
+state/*.enc
+*.key
+*.pem
+*.p12
+*.pfx
+*service-account*.json
+*-bdf40efd77e5.json
+*.apps.googleusercontent.com.json
+client_secret*.json
+
+# ── Python Cache & Build Artifacts ───────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+wheels/
+
+# ── Virtual Environment ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.Python
+
+# ── Runtime Data (mounted as volumes at runtime, not baked into image) ────────
+outputs/
+daily_exports/
+logs/
+
+# Keep state/ directory structure but NOT the runtime state files
+state/sync_state.json
+state/*.json
+!state/__init__.py
+!state/run_state.py
+!state/.gitkeep
+
+# ── Testing & Quality Tools ───────────────────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# ── Development Tools & IDE ───────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+.DS_Store
+Thumbs.db
+
+# ── Git ───────────────────────────────────────────────────────────────────────
+.git/
+.github/
+.gitignore
+.gitattributes
+
+# ── Docker itself ─────────────────────────────────────────────────────────────
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# ── Generated n8n workflow JSONs (deploy artifacts, not runtime code) ─────────
+kommo_*.json
+
+# ── Documentation (not needed at runtime) ────────────────────────────────────
+README.md
+SETUP.md
+*.md
+docs/
+
+# ── CI/CD ─────────────────────────────────────────────────────────────────────
+Makefile
+setup.sh

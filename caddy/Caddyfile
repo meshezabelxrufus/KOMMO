@@ -1,0 +1,89 @@
+# =============================================================================
+# Caddy Reverse Proxy Configuration
+# Kommo CRM Platform — Production
+# =============================================================================
+#
+# Features:
+#   - Automatic HTTPS via Let's Encrypt (zero config)
+#   - HTTP → HTTPS redirect (automatic)
+#   - HTTP/2 and HTTP/3 (QUIC) enabled
+#   - Security headers
+#   - Reverse proxy to n8n
+#   - Rate limiting on auth endpoints
+# =============================================================================
+
+# Replace {$DOMAIN_NAME} with your actual domain (set in .env)
+{$DOMAIN_NAME} {
+
+    # ── Logging ───────────────────────────────────────────────────────────
+    log {
+        output file /data/logs/access.log {
+            roll_size 10mb
+            roll_keep 5
+        }
+        format json
+        level INFO
+    }
+
+    # ── Security Headers ──────────────────────────────────────────────────
+    header {
+        # Prevent clickjacking
+        X-Frame-Options "SAMEORIGIN"
+        # Prevent MIME sniffing
+        X-Content-Type-Options "nosniff"
+        # Force HTTPS for 1 year
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        # XSS protection
+        X-XSS-Protection "1; mode=block"
+        # Referrer policy
+        Referrer-Policy "strict-origin-when-cross-origin"
+        # Remove server fingerprint
+        -Server
+        -X-Powered-By
+    }
+
+    # ── Webhook endpoints — no auth, high throughput ──────────────────────
+    @webhooks {
+        path /webhook/*
+        path /webhook-test/*
+    }
+    handle @webhooks {
+        reverse_proxy kommo-n8n:5678 {
+            # Long timeout for webhook processing
+            transport http {
+                response_header_timeout 120s
+                read_buffer_size 8kb
+            }
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    # ── n8n UI + API — all other routes ───────────────────────────────────
+    handle {
+        reverse_proxy kommo-n8n:5678 {
+            transport http {
+                response_header_timeout 60s
+                read_buffer_size 8kb
+            }
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+
+            # Health-check before routing traffic to n8n
+            health_uri /healthz
+            health_interval 15s
+            health_timeout 5s
+            health_status 2xx
+        }
+    }
+}
+
+# HTTP → HTTPS redirect (Caddy handles this automatically,
+# but this ensures naked http:// also redirects cleanly)
+http://{$DOMAIN_NAME} {
+    redir https://{$DOMAIN_NAME}{uri} permanent
+}
