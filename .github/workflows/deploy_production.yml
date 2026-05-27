@@ -1,0 +1,352 @@
+# =============================================================================
+# .github/workflows/deploy_production.yml
+# =============================================================================
+# Kommo CRM — Production VPS Deployment Pipeline
+#
+# TRIGGERS
+# ────────
+#   push to main     — Auto-deploy when infrastructure files change
+#   workflow_dispatch — Manual deploy with service selection
+#
+# PIPELINE
+# ────────
+#   Job 1 — validate   : Lint Dockerfile + Caddyfile syntax check
+#   Job 2 — deploy     : SSH to VPS, pull code, rebuild, restart stack
+#   Job 3 — healthcheck: Verify all 4 containers healthy + HTTPS responding
+#   Job 4 — notify     : Slack alert on failure
+#
+# REQUIRED GITHUB SECRETS
+# ────────────────────────
+#   VPS_HOST           Hetzner server IP or hostname
+#   VPS_SSH_PORT       SSH port (e.g. 2222)
+#   VPS_USER           Deployment user (e.g. kommo)
+#   VPS_SSH_KEY        Private SSH key for the deployment user (PEM format)
+#   N8N_DOMAIN         Production n8n domain (e.g. n8n.yourdomain.com)
+#   SLACK_WEBHOOK_URL  Slack webhook for deployment alerts (optional)
+# =============================================================================
+
+name: Deploy → Production VPS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      # Only trigger on infrastructure file changes
+      - "Dockerfile"
+      - "docker-compose.yml"
+      - "caddy/Caddyfile"
+      - "deploy.sh"
+      - "requirements.txt"
+      - "n8n_exports/**"
+      - ".github/workflows/deploy_production.yml"
+
+  workflow_dispatch:
+    inputs:
+      service:
+        description: "Service to restart (leave empty for full stack)"
+        required: false
+        default: ""
+        type: choice
+        options:
+          - ""                # Full stack
+          - kommo-pipeline
+          - kommo-n8n
+          - kommo-caddy
+          - postgres
+      force_rebuild:
+        description: "Force Docker image rebuild"
+        required: false
+        default: false
+        type: boolean
+      skip_healthcheck:
+        description: "Skip post-deploy health check"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false   # Never cancel a running deployment
+
+permissions:
+  contents: read
+  deployments: write
+
+# =============================================================================
+jobs:
+
+  # ===========================================================================
+  # JOB 1 — VALIDATE
+  # Syntax-check Dockerfile and Caddyfile before touching the server.
+  # ===========================================================================
+  validate:
+    name: "🔍 Validate Config Files"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: "📥 Checkout"
+        uses: actions/checkout@v4
+
+      - name: "🐳 Validate Dockerfile syntax"
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+          failure-threshold: error    # Only fail on errors, not style warnings
+          ignore: DL3008,DL3009      # Ignore apt pinning warnings (we use slim base)
+
+      - name: "🔍 Validate docker-compose syntax"
+        run: |
+          docker compose -f docker-compose.yml config --quiet
+          echo "✅ docker-compose.yml is valid"
+
+      - name: "🔍 Validate Caddyfile syntax"
+        run: |
+          docker run --rm \
+            -e N8N_DOMAIN=n8n.example.com \
+            -e API_DOMAIN=api.example.com \
+            -e ACME_EMAIL=test@example.com \
+            -v "${{ github.workspace }}/caddy/Caddyfile:/etc/caddy/Caddyfile:ro" \
+            caddy:2-alpine caddy validate --config /etc/caddy/Caddyfile
+          echo "✅ Caddyfile is valid"
+
+
+  # ===========================================================================
+  # JOB 2 — DEPLOY
+  # SSH into VPS, pull latest code, rebuild image, restart stack.
+  # ===========================================================================
+  deploy:
+    name: "🚀 Deploy to Production"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: validate
+    environment: production
+
+    steps:
+      - name: "📥 Checkout"
+        uses: actions/checkout@v4
+
+      - name: "🔑 Configure SSH"
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "${{ secrets.VPS_SSH_PORT }}" "${{ secrets.VPS_HOST }}" \
+            >> ~/.ssh/known_hosts 2>/dev/null
+          echo "SSH configured"
+
+      - name: "🚀 Deploy to VPS"
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_PORT: ${{ secrets.VPS_SSH_PORT }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          SERVICE:  ${{ github.event.inputs.service || '' }}
+          FORCE_REBUILD: ${{ github.event.inputs.force_rebuild || 'false' }}
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+              -p "$VPS_PORT" \
+              -o StrictHostKeyChecking=yes \
+              -o ConnectTimeout=30 \
+              "$VPS_USER@$VPS_HOST" \
+              "bash -s" << 'REMOTE_SCRIPT'
+
+            set -euo pipefail
+
+            PLATFORM_DIR="/opt/kommo-platform"
+            APP_DIR="$PLATFORM_DIR/app"
+
+            echo "======================================"
+            echo "  Kommo CRM — Production Deploy"
+            echo "  Commit: $GITHUB_SHA"
+            echo "  Triggered by: $GITHUB_ACTOR"
+            echo "======================================"
+
+            # Pull latest code
+            echo "▶ Pulling latest code..."
+            cd "$APP_DIR"
+            git fetch origin main
+            git reset --hard origin/main
+            echo "✅ Code updated to $(git rev-parse --short HEAD)"
+
+            # Copy updated Caddyfile
+            cp "$APP_DIR/caddy/Caddyfile" "$PLATFORM_DIR/caddy/Caddyfile"
+            echo "✅ Caddyfile updated"
+
+            # Rebuild Python image if Dockerfile or requirements changed
+            if [ "$FORCE_REBUILD" = "true" ] || \
+               git diff HEAD~1 --name-only | grep -qE "^(Dockerfile|requirements.txt)$"; then
+              echo "▶ Rebuilding kommo-pipeline image..."
+              DOCKER_BUILDKIT=1 docker build \
+                --file Dockerfile \
+                --tag kommo-pipeline:latest \
+                --cache-from kommo-pipeline:latest \
+                .
+              echo "✅ Image rebuilt"
+            else
+              echo "ℹ️  Dockerfile/requirements unchanged — skipping rebuild"
+            fi
+
+            # Pull latest upstream images
+            echo "▶ Pulling latest upstream images..."
+            docker compose pull --quiet n8nio/n8n caddy postgres
+
+            # Restart services
+            if [ -n "$SERVICE" ]; then
+              echo "▶ Restarting specific service: $SERVICE"
+              docker compose up -d --no-deps --remove-orphans "$SERVICE"
+            else
+              echo "▶ Restarting full stack..."
+              docker compose up -d --remove-orphans
+            fi
+
+            # Brief wait for containers to settle
+            sleep 10
+
+            echo "▶ Container status:"
+            docker compose ps
+
+            echo "✅ Deployment complete"
+
+          REMOTE_SCRIPT
+
+      - name: "🔒 Cleanup SSH key"
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
+
+
+  # ===========================================================================
+  # JOB 3 — HEALTHCHECK
+  # Verify all containers are running and HTTPS is responding.
+  # ===========================================================================
+  healthcheck:
+    name: "❤️  Health Check"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: deploy
+    if: ${{ github.event.inputs.skip_healthcheck != 'true' }}
+
+    steps:
+      - name: "🔑 Configure SSH"
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "${{ secrets.VPS_SSH_PORT }}" "${{ secrets.VPS_HOST }}" \
+            >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: "❤️  Remote container health check"
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_PORT: ${{ secrets.VPS_SSH_PORT }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+              -p "$VPS_PORT" \
+              -o StrictHostKeyChecking=yes \
+              "$VPS_USER@$VPS_HOST" \
+              "bash -s" << 'HEALTHCHECK'
+
+            set -euo pipefail
+            FAILED=0
+
+            check_container() {
+              local name="$1"
+              local status
+              status=$(docker inspect --format='{{.State.Health.Status}}' "$name" 2>/dev/null || echo "missing")
+              if [[ "$status" == "healthy" || "$status" == "" ]]; then
+                echo "  ✅ $name: running"
+              else
+                echo "  ❌ $name: $status"
+                FAILED=$((FAILED + 1))
+              fi
+            }
+
+            echo "Container health:"
+            check_container "kommo-postgres"
+            check_container "kommo-n8n"
+            check_container "kommo-pipeline"
+            check_container "kommo-caddy"
+
+            echo ""
+            echo "Resource usage:"
+            docker stats --no-stream --format \
+              "  {{.Name}}: CPU={{.CPUPerc}} MEM={{.MemUsage}}" \
+              kommo-postgres kommo-n8n kommo-pipeline kommo-caddy 2>/dev/null || true
+
+            [ "$FAILED" -eq 0 ] || exit 1
+            echo ""
+            echo "✅ All containers healthy"
+          HEALTHCHECK
+
+      - name: "🌐 HTTPS endpoint check"
+        env:
+          N8N_DOMAIN: ${{ secrets.N8N_DOMAIN }}
+        run: |
+          echo "Checking https://$N8N_DOMAIN/healthz ..."
+          for i in 1 2 3 4 5; do
+            STATUS=$(curl -sLo /dev/null -w "%{http_code}" \
+              --max-time 15 \
+              "https://$N8N_DOMAIN/healthz" 2>/dev/null || echo "000")
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ https://$N8N_DOMAIN/healthz → HTTP $STATUS"
+              exit 0
+            fi
+            echo "  Attempt $i: HTTP $STATUS — retrying in 10s..."
+            sleep 10
+          done
+          echo "❌ Health check failed after 5 attempts"
+          exit 1
+
+      - name: "🔒 Cleanup"
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
+
+
+  # ===========================================================================
+  # JOB 4 — NOTIFY
+  # ===========================================================================
+  notify:
+    name: "🔔 Deployment Alert"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [validate, deploy, healthcheck]
+    if: always()
+
+    steps:
+      - name: "✅ Slack — Deploy Success"
+        if: ${{ needs.deploy.result == 'success' && needs.healthcheck.result == 'success' }}
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {
+              "text": "✅ *Kommo CRM deployed successfully*",
+              "blocks": [{
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "✅ *Kommo CRM — Production Deploy Succeeded*\n*Commit:* `${{ github.sha }}`\n*By:* ${{ github.actor }}\n*URL:* https://${{ secrets.N8N_DOMAIN }}\n*<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>*"
+                }
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      - name: "❌ Slack — Deploy Failed"
+        if: ${{ failure() }}
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {
+              "text": "❌ *Kommo CRM deploy FAILED*",
+              "blocks": [{
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "❌ *Kommo CRM — Production Deploy FAILED*\n*Commit:* `${{ github.sha }}`\n*By:* ${{ github.actor }}\n*Validate:* ${{ needs.validate.result }}\n*Deploy:* ${{ needs.deploy.result }}\n*Health:* ${{ needs.healthcheck.result }}\n*<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>*"
+                }
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
