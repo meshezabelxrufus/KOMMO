@@ -1,79 +1,87 @@
-# Kommo CRM Automation System — Milestone 1 Delivery
+# Kommo CRM Automation Pipeline — Milestone 2
 
-## 1. Project Overview
+## Project Overview
+This project provides a robust, production-grade automation pipeline designed to extract data from Kommo CRM, process it into an AI-ready flat format, and prepare it for downstream analytics and Google ecosystem integrations.
 
-This integration provides a fully automated, production-ready data pipeline between your Kommo CRM and your downstream data infrastructure. 
+It acts as a secure bridge between your Kommo CRM account and your reporting infrastructure.
 
-The primary objective of this system is to securely extract, structure, and organize your CRM data—with a specific focus on sales conversations—to enable advanced AI analysis using Claude. By automatically pulling the latest leads, contacts, and daily chat messages into an AI-ready format, this system empowers you to generate deep insights into sales performance, customer sentiment, objection handling, and buying signals without manual data wrangling.
+## Features (Milestone 2)
+- **Full Extraction Pipeline**: Automated, paginated fetching of Leads, Contacts, Tasks, Pipelines, and Chats/Messages.
+- **Incremental Sync System**: Intelligently fetches only records updated since the last run, significantly reducing API load and execution time.
+- **AI-Ready JSON Export System**: Automatically denormalizes complex chat histories into a flat, chronologically sorted `messages_flat.json` format perfectly suited for LLM/Claude analysis.
+- **Daily Analytics Engine**: Generates a structured `daily_summary.json` providing execution statistics, data volumes, and system health metrics.
+- **Orchestrator Automation**: A master `main.py` controller that sequentially orchestrates extraction, processing, and export phases.
+- **Resilience & Reliability**: Built-in exponential backoff retries, API rate-limit protections, and graceful error handling.
+- **GitHub Actions Ready**: Configured for automated daily execution.
 
-## 2. What Has Been Delivered (Milestone 1)
+## Architecture Overview
+The pipeline follows a modular, phase-based architecture:
 
-The technical foundation and core extraction pipelines are fully complete and production-ready. The following components have been successfully delivered:
+**Kommo CRM** → **Python Engine** (Authentication & Extraction) → **Processing Layer** (Incremental State & Normalization) → **JSON Outputs** (AI-ready Data) → **Analytics Layer** (Run Summaries) → **(Google Integration Layer - Pending)**
 
-- **Authentication & Core Infrastructure**
-  - Secure OAuth 2.0 authentication system with automatic, hands-free token refresh.
-  - Robust API client featuring intelligent retry logic, pagination handling, and rate limiting compliance.
-- **Data Extraction Modules**
-  - **Leads:** Complete extraction with pipeline and stage tracking.
-  - **Pipelines:** Full pipeline architectures and status structures.
-  - **Tasks:** Task extraction including completion status and ownership (supports both full and slim formats).
-  - **Contacts:** Contact information extraction, securely linked to corresponding leads.
-  - **Chats & Messages:** Deep extraction of conversation threads across all connected channels (WhatsApp, Email, SMS, Telegram, etc.).
-- **Data Intelligence & Processing**
-  - **AI-Ready Message Dataset:** Delivery of `messages_flat.json`, a highly specialized, flattened dataset designed specifically for seamless consumption by Claude AI.
-  - **Incremental Sync System:** Intelligent state tracking ensures only new or updated data is fetched in subsequent runs, maximizing speed and efficiency.
-- **Reliability & Automation**
-  - **GitHub Actions Pipeline:** Fully configured daily automation for zero-touch execution.
-  - **Production Safeguards:** Dead-letter error handling, atomic file writes (to prevent data corruption), and structured logging.
+## Setup Instructions
 
-## 3. System Architecture
-
-The pipeline follows a clean, modular data flow designed for maximum reliability:
-
-```mermaid
-graph LR
-    A[Kommo CRM] --> B[OAuth Layer]
-    B --> C[API Client]
-    C --> D[Extraction Modules]
-    D --> E[Sync Engine]
-    E --> F[Structured JSON Outputs]
-    F --> G[AI Processing]
+### 1. Install Dependencies
+Ensure you have Python 3.10+ installed. Create a virtual environment and install the required packages:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-## 4. Output Data Structure
+### 2. Configure Environment Variables
+Copy the example configuration file and fill in your credentials:
+```bash
+cp .env.example .env
+```
+Ensure your Kommo OAuth credentials (`KOMMO_CLIENT_ID`, `KOMMO_CLIENT_SECRET`, `KOMMO_SUBDOMAIN`, `KOMMO_REDIRECT_URI`) are filled in.
 
-The system produces clean, validated JSON datasets, stored securely and ready for downstream use:
+### 3. Authenticate with Kommo
+Run the one-time authentication script to authorize the application and securely store your tokens:
+```bash
+python run_auth.py
+```
 
-- `leads.json`: Contains full lead profiles, ownership details, and current pipeline stages.
-- `pipelines.json`: Maps the structure of your sales pipelines and status codes.
-- `tasks.json`: Records all activities, to-dos, and their completion states.
-- `contacts.json`: Houses contact details (names, phone numbers, emails) linked to leads.
-- `chats.json`: Thread-level conversation metadata.
-- `messages_flat.json`: **The primary AI deliverable.** This file combines leads, contacts, and chat messages into a single, chronological, flattened schema. It includes the channel, direction (inbound/outbound), author, and text content, making it instantly ready for Claude to analyze without further data joining.
+## How to Run
 
-## 5. Key Features
+To run the full automated pipeline incrementally (only fetching new data since the last run):
+```bash
+source .venv/bin/activate
+python main.py --auto-incremental
+```
 
-- **Fully Automated Daily Execution:** Runs seamlessly in the background via GitHub Actions.
-- **Incremental Sync:** Remembers where it left off. After the initial sync, it only downloads new messages and updated leads, ensuring rapid daily updates and zero data duplication.
-- **Secure Authentication:** Credentials are encrypted and handled autonomously. The system refreshes its own access daily.
-- **Production-Grade Reliability:** Built-in safeguards mean network blips or Kommo API timeouts are automatically retried. Validation errors are neatly set aside (dead-lettered) rather than crashing the system.
-- **Scalable Architecture:** Designed to handle thousands of daily messages with a minimal memory footprint.
+## Outputs Explanation
+The system generates local files within the `outputs/`, `daily_exports/`, and `logs/` directories:
 
-## 6. How It Runs
+- `outputs/messages_flat.json`: The core AI deliverable. A denormalized, chronologically sorted array of all messages and chat history joined with Lead metadata.
+- `outputs/leads.json` / `tasks.json` / `pipelines.json`: Raw extracted entity data.
+- `daily_exports/YYYY-MM-DD.json`: A daily isolated snapshot of conversations grouped by Lead, optimized for batch AI processing.
+- `logs/analytics_YYYY-MM-DD.json`: A structured summary of the day's pipeline run, detailing records processed, durations, and any non-critical failures.
 
-The system requires absolutely no manual intervention. 
+> [!WARNING]
+> ## ⚠️ External Dependencies (Google Integrations)
+>
+> The Google Sheets synchronization and Google Drive upload modules have been **fully built and implemented** into the codebase. However, they are currently **NOT active** because the required Google credentials have not yet been provided.
+> 
+> **Required Items to Activate Google Integrations:**
+> 1. **Google Service Account JSON file**: Needed to authenticate server-to-server with Google.
+> 2. **Google Sheets Spreadsheet ID**: The target spreadsheet for daily syncs.
+> 3. **Google Drive Folder ID**: The target folder for uploading daily JSON exports.
+>
+> **Status**: The pipeline runs flawlessly up to the JSON export phase and will gracefully skip the Google integrations, ensuring the rest of your data extraction completes successfully. Once the above credentials are provided in the `.env` file, the Google integrations will automatically become fully operational.
 
-It is deployed via **GitHub Actions** and scheduled to run automatically every day. During each run, it securely authenticates, checks for any new conversations or updated records since the last run, extracts the new data, updates its internal cursor, and securely outputs the finalized AI-ready datasets. 
+## System Status
+| Component | Status |
+| :--- | :--- |
+| Kommo Extraction | ✅ Complete |
+| JSON Pipeline & Flat Formatting | ✅ Complete |
+| Analytics Engine | ✅ Complete |
+| Orchestrator (`main.py`) | ✅ Complete |
+| Google Sheets Sync | ⚠️ Built (Pending Credentials) |
+| Google Drive Upload | ⚠️ Built (Pending Credentials) |
+| **End-to-End Pipeline** | **90% Complete** |
 
-## 7. Next Phase Enhancements
-
-With the data foundation successfully delivered, the system is primed for the next phase of integrations:
-
-- **Google Sheets Integration:** Automatically pushing the flattened message data and AI insights into a live, collaborative Google Sheet.
-- **Advanced AI Analysis Layer:** Wiring the `messages_flat.json` output directly into Claude for automated sentiment scoring and objection analysis.
-- **Dashboarding & Reporting:** Building visual operational dashboards on top of the extracted datasets.
-- **Performance Optimizations:** Implementing parallel processing for massive-scale enterprise accounts.
-
-## 8. Final Statement
-
-The Kommo CRM Automation System is **production-ready**. Milestone 1 has been successfully delivered, providing a resilient, secure, and automated data pipeline. The infrastructure is robust, the data is clean, and the system is fully prepared for the next phase of advanced AI integration.
+## Troubleshooting
+- **Missing Environment Variables**: If `python main.py` exits immediately, check that your `.env` file exists and is populated.
+- **OAuth Issues**: If token validation fails, re-run `python run_auth.py` to generate a fresh token set.
+- **API Rate Limits**: The system automatically retries on 429 Too Many Requests. If persistent, consider running the pipeline less frequently.

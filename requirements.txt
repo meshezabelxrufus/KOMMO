@@ -4,6 +4,19 @@
 # =============================================================================
 
 # ---------------------------------------------------------------------------
+# Milestone 2 — Google Sheets Integration
+# ---------------------------------------------------------------------------
+gspread==6.1.2                 # Google Sheets API client (read/write/format)
+google-auth==2.29.0            # Google OAuth2 / Service Account credentials
+google-auth-oauthlib==1.2.0    # OAuth flow helpers (used by gspread internally)
+google-auth-httplib2==0.2.0    # httplib2 transport adapter for google-auth
+
+# ---------------------------------------------------------------------------
+# Milestone 2 — Google Drive Integration
+# ---------------------------------------------------------------------------
+google-api-python-client==2.131.0  # Google Drive API v3 (upload, list, delete)
+
+# ---------------------------------------------------------------------------
 # HTTP Client
 # ---------------------------------------------------------------------------
 httpx==0.27.0                  # Modern HTTP client with timeout & retry support
@@ -12,8 +25,8 @@ requests==2.32.3               # Used in auth/oauth.py for OAuth token exchange
 # ---------------------------------------------------------------------------
 # Configuration & Environment
 # ---------------------------------------------------------------------------
-pydantic==2.7.1                # Data validation and serialization
-pydantic-settings==2.3.1       # Type-safe settings from .env files
+pydantic==2.10.0               # Data validation and serialization
+pydantic-settings==2.7.0       # Type-safe settings from .env files
 python-dotenv==1.0.1           # .env file loader (load_dotenv in entry points)
 
 # ---------------------------------------------------------------------------

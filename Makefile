@@ -3,7 +3,10 @@
 
 .PHONY: help setup auth extract extract-incremental extract-slim \
         leads pipelines tasks tasks-slim contacts chats messages \
-        test test-verbose test-coverage clean clean-outputs clean-state state reset-state
+        daily-export daily-export-all drive-upload drive-upload-all sheets-sync \
+        pipeline pipeline-full pipeline-extraction-only \
+        test test-verbose test-coverage \
+        clean clean-outputs clean-state clean-exports clean-daily state reset-state
 
 # ---------------------------------------------------------------------------
 # Default
@@ -35,10 +38,25 @@ help:
 	@echo "  make test-verbose        Run tests with verbose output"
 	@echo "  make test-coverage       Tests + HTML coverage report"
 	@echo ""
+	@echo "  ── Full Pipeline (M1 + M2) ──────────────────────────"
+	@echo "  make pipeline             Full M1+M2 pipeline (incremental)"
+	@echo "  make pipeline-full        Full M1+M2 pipeline (full re-extraction)"
+	@echo "  make pipeline-extraction-only  Extraction only (skip M2 phases)"
+	@echo ""
+	@echo "  ── Milestone 2 (Google integrations) ───────────────"
+	@echo "  make daily-export         Generate today's AI-ready JSON export"
+	@echo "  make daily-export-all     Generate exports for ALL available dates"
+	@echo "  make drive-upload         Upload latest export to Google Drive"
+	@echo "  make drive-upload-all     Upload all local exports to Drive"
+	@echo "  make sheets-sync          Sync all worksheets to Google Sheets"
+	@echo ""
 	@echo "  ── State & Cleanup ─────────────────────────────────"
 	@echo "  make state               Print current sync state"
 	@echo "  make reset-state         Force full re-extraction next run"
 	@echo "  make clean               Remove outputs + state + cache"
+	@echo "  make clean-outputs       Remove output JSON files only"
+	@echo "  make clean-exports       Remove daily_exports/ files only"
+	@echo "  make clean-daily         Remove outputs + exports (keep state)"
 	@echo ""
 
 # ---------------------------------------------------------------------------
@@ -99,6 +117,42 @@ messages: chats
 	@echo "Flat messages written to outputs/messages_flat.json"
 
 # ---------------------------------------------------------------------------
+# Full Pipeline (M1 + M2)
+# ---------------------------------------------------------------------------
+pipeline:
+	@source .venv/bin/activate && python main.py --auto-incremental
+
+pipeline-full:
+	@source .venv/bin/activate && python main.py
+
+pipeline-extraction-only:
+	@source .venv/bin/activate && python main.py --extraction-only
+
+# ---------------------------------------------------------------------------
+# Milestone 2 — Daily AI Export
+# ---------------------------------------------------------------------------
+daily-export:
+	@source .venv/bin/activate && python run_daily_export.py
+
+daily-export-all:
+	@source .venv/bin/activate && python run_daily_export.py --all
+
+# ---------------------------------------------------------------------------
+# Milestone 2 — Google Drive Upload
+# ---------------------------------------------------------------------------
+drive-upload:
+	@source .venv/bin/activate && python run_drive_upload.py
+
+drive-upload-all:
+	@source .venv/bin/activate && python run_drive_upload.py --all
+
+# ---------------------------------------------------------------------------
+# Milestone 2 — Google Sheets Sync
+# ---------------------------------------------------------------------------
+sheets-sync:
+	@source .venv/bin/activate && python run_sheets_sync.py
+
+# ---------------------------------------------------------------------------
 # Testing
 # ---------------------------------------------------------------------------
 test:
@@ -142,6 +196,14 @@ clean:
 clean-outputs:
 	@rm -f outputs/*.json outputs/errors/*.json
 	@echo "Output files removed."
+
+clean-exports:
+	@rm -f daily_exports/*.json
+	@echo "Daily export files removed."
+
+clean-daily:
+	@rm -f outputs/*.json outputs/errors/*.json daily_exports/*.json
+	@echo "Outputs and daily exports removed."
 
 clean-state:
 	@rm -f state/sync_state.json

@@ -49,7 +49,7 @@ def _build_parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _build_parser().parse_args()
-    configure_logging(level="DEBUG" if args.debug else "INFO")
+    configure_logging(log_level="DEBUG" if args.debug else "INFO")
     log  = get_logger(__name__)
     sm   = StateManager()
 

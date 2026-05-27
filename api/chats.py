@@ -67,6 +67,7 @@ from typing import Any
 from pydantic import BaseModel, Field, model_validator
 
 from api.client import KommoAPIClient, KommoClientError, KommoNotFoundError
+from api.message_strategies import FallbackMessageExtractor, FallbackExtractionResult
 from utils.logger import get_logger
 from utils.retry import retry_api_call
 
@@ -307,7 +308,72 @@ class ChatsExtractor:
         latest_ts: int | None = None
 
         # ------------------------------------------------------------------
-        # Step 1: Paginate all chat threads
+        # Step 1: Pre-flight capability check — detect 404 before paginate()
+        #         swallows it. paginate() catches KommoNotFoundError internally
+        #         so we must probe explicitly.
+        # ------------------------------------------------------------------
+        chats_api_available = self._probe_chats_api()
+
+        if not chats_api_available:
+            # ──────────────────────────────────────────────────────────────
+            # CHATS API UNAVAILABLE (404) — activate fallback strategy chain
+            # ──────────────────────────────────────────────────────────────
+            logger.warning(
+                "Chats API returned 404 — Kommo Conversations feature not enabled. "
+                "Activating fallback strategy chain: events + notes + talks.",
+            )
+            fb_result = self._run_fallback_extraction()
+            all_chats              = fb_result.virtual_chats
+            flat_messages_override = fb_result.flat_messages
+            latest_ts = max(
+                (m.get("timestamp") or 0 for m in flat_messages_override),
+                default=None,
+            ) or None
+
+            for msg in flat_messages_override:
+                d = msg.get("direction", "")
+                if d == "inbound":
+                    result.inbound_messages += 1
+                elif d == "outbound":
+                    result.outbound_messages += 1
+
+            result.total_chats       = len(all_chats)
+            result.total_messages    = len(flat_messages_override)
+            result.latest_message_ts = latest_ts
+
+            result.output_path = self._write_json(
+                "chats.json", all_chats,
+                meta_extras={
+                    "total_messages":    len(flat_messages_override),
+                    "extraction_method": "fallback_chain",
+                    "strategies_used":   fb_result.strategies_used,
+                },
+            )
+            result.flat_output_path = self._write_json(
+                "messages_flat.json", flat_messages_override,
+                entity_name="messages",
+                meta_extras={
+                    "schema":   "lead_id,lead_name,contact_name,channel,direction,author,message_text,timestamp",
+                    "inbound":  result.inbound_messages,
+                    "outbound": result.outbound_messages,
+                    "note":     "AI-ready flat schema — extracted via fallback chain (events + notes + talks)",
+                    "extraction_method": "fallback_chain",
+                    "strategies_used":   fb_result.strategies_used,
+                    "fallback_stats":    fb_result.stats,
+                },
+            )
+
+            result.duration_seconds = time.monotonic() - started
+            result.finished_at      = datetime.now(tz=timezone.utc).isoformat()
+
+            logger.info(
+                "Chat extraction complete (fallback)",
+                extra={**result.as_dict(), "fallback_stats": fb_result.stats},
+            )
+            return result
+
+        # ------------------------------------------------------------------
+        # Step 2: Chats API available — paginate normally
         # ------------------------------------------------------------------
         try:
             for page_num, raw_page in enumerate(
@@ -325,7 +391,7 @@ class ChatsExtractor:
                         chat = ChatRecord.model_validate(raw_chat)
                         all_chats.append(chat.model_dump(mode="json"))
 
-                        # Step 2: Fetch messages for this chat
+                        # Step 3: Fetch messages for this chat
                         msgs, failed_msgs = self._fetch_messages(chat)
                         all_messages.extend(msgs)
                         result.failed_messages += len(failed_msgs)
@@ -346,14 +412,79 @@ class ChatsExtractor:
                 logger.info(
                     "Chats page processed",
                     extra={
-                        "page":          page_num,
-                        "chats_this_page": len(raw_page),
-                        "messages_total": len(all_messages),
+                        "page":             page_num,
+                        "chats_this_page":  len(raw_page),
+                        "messages_total":   len(all_messages),
                     },
                 )
 
         except KommoNotFoundError:
-            logger.info("No chats found in account (404 from API)")
+            # ──────────────────────────────────────────────────────────────
+            # CHATS API UNAVAILABLE (404) — activate fallback strategy chain
+            # ──────────────────────────────────────────────────────────────
+            # The Kommo Conversations feature is not enabled on this account.
+            # We transparently fall back to:
+            #   1. Events API  (outgoing/incoming_chat_message events)
+            #   2. Notes API   (lead notes with real text)
+            #   3. Talks API   (channel enrichment)
+            # Output schema is identical — downstream code is unaffected.
+            logger.warning(
+                "Chats API returned 404 — Kommo Conversations feature not enabled. "
+                "Activating fallback strategy chain: events + notes + talks.",
+            )
+            fb_result = self._run_fallback_extraction()
+            all_chats    = fb_result.virtual_chats
+            flat_messages_override = fb_result.flat_messages
+            latest_ts    = max(
+                (m.get("timestamp") or 0 for m in flat_messages_override),
+                default=None,
+            ) or None
+
+            # Map fallback direction labels (inbound/outbound) to stats counters
+            for msg in flat_messages_override:
+                d = msg.get("direction", "")
+                if d == "inbound":
+                    result.inbound_messages += 1
+                elif d == "outbound":
+                    result.outbound_messages += 1
+
+            result.total_chats       = len(all_chats)
+            result.total_messages    = len(flat_messages_override)
+            result.latest_message_ts = latest_ts
+
+            result.output_path = self._write_json(
+                "chats.json", all_chats,
+                meta_extras={
+                    "total_messages":    len(flat_messages_override),
+                    "extraction_method": "fallback_chain",
+                    "strategies_used":   fb_result.strategies_used,
+                },
+            )
+            result.flat_output_path = self._write_json(
+                "messages_flat.json", flat_messages_override,
+                entity_name="messages",
+                meta_extras={
+                    "schema":   "lead_id,lead_name,contact_name,channel,direction,author,message_text,timestamp",
+                    "inbound":  result.inbound_messages,
+                    "outbound": result.outbound_messages,
+                    "note":     "AI-ready flat schema — extracted via fallback chain (events + notes + talks)",
+                    "extraction_method": "fallback_chain",
+                    "strategies_used":   fb_result.strategies_used,
+                    "fallback_stats":    fb_result.stats,
+                },
+            )
+
+            result.duration_seconds = time.monotonic() - started
+            result.finished_at      = datetime.now(tz=timezone.utc).isoformat()
+
+            logger.info(
+                "Chat extraction complete (fallback)",
+                extra={
+                    **result.as_dict(),
+                    "fallback_stats": fb_result.stats,
+                },
+            )
+            return result
 
         except KommoClientError as exc:
             logger.error(
@@ -363,7 +494,7 @@ class ChatsExtractor:
             raise
 
         # ------------------------------------------------------------------
-        # Step 3: Build flat messages (AI-ready schema)
+        # Step 3: Build flat messages (AI-ready schema) — native Chats path
         # ------------------------------------------------------------------
         flat_messages = self._build_flat_messages(all_messages, all_chats)
 
@@ -382,23 +513,21 @@ class ChatsExtractor:
         result.failed_chats     = len(failed_chats)
         result.latest_message_ts = latest_ts
 
-        if all_chats:
-            result.output_path = self._write_json(
-                "chats.json", all_chats,
-                meta_extras={"total_messages": len(all_messages)},
-            )
+        result.output_path = self._write_json(
+            "chats.json", all_chats,
+            meta_extras={"total_messages": len(all_messages)},
+        )
 
-        if flat_messages:
-            result.flat_output_path = self._write_json(
-                "messages_flat.json", flat_messages,
-                entity_name="messages",
-                meta_extras={
-                    "schema": "lead_id,lead_name,contact_name,channel,direction,author,message_text,timestamp",
-                    "inbound":  result.inbound_messages,
-                    "outbound": result.outbound_messages,
-                    "note": "AI-ready flat schema — primary input for Claude analysis",
-                },
-            )
+        result.flat_output_path = self._write_json(
+            "messages_flat.json", flat_messages,
+            entity_name="messages",
+            meta_extras={
+                "schema": "lead_id,lead_name,contact_name,channel,direction,author,message_text,timestamp",
+                "inbound":  result.inbound_messages,
+                "outbound": result.outbound_messages,
+                "note": "AI-ready flat schema — primary input for Claude analysis",
+            },
+        )
 
         if failed_chats:
             result.dead_letter_path = self._write_dead_letter(failed_chats)
@@ -408,6 +537,7 @@ class ChatsExtractor:
 
         logger.info("Chat extraction complete", extra=result.as_dict())
         return result
+
 
     def extract_since(self, last_message_timestamp: int) -> ChatExtractionResult:
         """
@@ -428,6 +558,93 @@ class ChatsExtractor:
             return self.extract_all()
         finally:
             self._extra_params = original
+
+    # =========================================================================
+    # PRIVATE: Chats API capability probe
+    # =========================================================================
+
+    def _probe_chats_api(self) -> bool:
+        """
+        Check whether the Kommo Chats API feature is enabled on this account.
+
+        The /chats endpoint returns 404 when the Kommo Conversations feature
+        is not enabled (it is a paid add-on). This probe detects the 404
+        before paginate() swallows it silently.
+
+        We use a direct client.get() call (bypassing paginate) so the
+        KommoNotFoundError propagates up normally.
+
+        Returns:
+            True  — /chats is available, proceed with native extraction.
+            False — /chats returned 404, activate fallback chain.
+        """
+        try:
+            self._client.get("/chats", params={"limit": 1})
+            logger.info("[ChatsAPI] Chats API probe: available ✅")
+            return True
+        except KommoNotFoundError:
+            logger.warning("[ChatsAPI] Chats API probe: 404 — feature not enabled ❌")
+            return False
+        except KommoClientError as exc:
+            # Any other error (5xx, timeout) — let native path handle it
+            logger.warning("[ChatsAPI] Chats API probe: unexpected error — %s", exc)
+            return True  # Proceed with native path; it will raise if needed
+
+    # =========================================================================
+    # PRIVATE: Fallback extraction (when /chats API is 404)
+    # =========================================================================
+
+    def _run_fallback_extraction(self) -> FallbackExtractionResult:
+        """
+        Activate the multi-strategy fallback extraction chain.
+
+        Called automatically by extract_all() when /chats returns 404.
+        Uses FallbackMessageExtractor which chains:
+          - Events API  (outgoing/incoming_chat_message events)
+          - Notes API   (agent notes with real text per active lead)
+          - Talks API   (channel enrichment map)
+
+        Enrichment (lead_names, contact_names) is loaded from:
+          1. self._lead_names / self._contact_names  (if pre-populated)
+          2. outputs/leads.json on disk              (auto-loaded as fallback)
+
+        Returns:
+            FallbackExtractionResult with flat_messages, virtual_chats, stats.
+        """
+        lead_names    = dict(self._lead_names)
+        contact_names = dict(self._contact_names)
+
+        # Auto-load enrichment from disk if not pre-populated
+        if not lead_names or not contact_names:
+            import json
+            leads_path = self._output_dir / "leads.json"
+            if leads_path.exists():
+                try:
+                    raw = json.loads(leads_path.read_text(encoding="utf-8"))
+                    for lead in raw.get("data", []):
+                        lid  = lead.get("id") or lead.get("lead_id")
+                        name = lead.get("name") or lead.get("lead_name")
+                        if lid and name:
+                            lead_names[int(lid)] = name
+                        # contacts embedded in lead
+                        for contact in lead.get("contacts", []):
+                            cname = contact.get("name")
+                            if lid and cname and int(lid) not in contact_names:
+                                contact_names[int(lid)] = cname
+                    logger.info(
+                        "[Fallback] Loaded enrichment from disk",
+                        extra={"leads": len(lead_names), "contacts": len(contact_names)},
+                    )
+                except Exception as exc:
+                    logger.warning("[Fallback] Could not load leads.json for enrichment: %s", exc)
+
+        extractor = FallbackMessageExtractor(
+            client=self._client,
+            lead_names=lead_names,
+            contact_names=contact_names,
+            page_size=self._page_size,
+        )
+        return extractor.extract()
 
     # =========================================================================
     # PRIVATE: Message fetching

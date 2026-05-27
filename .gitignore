@@ -41,10 +41,25 @@ htmlcov/
 *.swo
 .DS_Store
 
-# Output data (optional — remove if you want to commit sample outputs)
+# Output data — runtime generated, not source code
+outputs/*.json
 outputs/data/*.json
 outputs/errors/*.json
-logs/*.log
 
-# Atomic temp files (should never persist, but guard anyway)
-*.tmp
+# Logs — runtime generated
+logs/*.log
+logs/*.log.*
+logs/analytics_*.json
+
+# Daily AI exports — generated data, not source code
+daily_exports/*.json
+
+# n8n exported workflow JSONs — these are deploy artifacts, not source
+# (the Python deploy scripts ARE committed; these are the generated outputs)
+kommo_*.json
+
+# Google credentials / service account JSON files — NEVER commit
+*.apps.googleusercontent.com.json
+*-bdf40efd77e5.json
+service_account*.json
+credentials*.json
