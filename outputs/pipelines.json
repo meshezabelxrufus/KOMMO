@@ -3,7 +3,7 @@
     "entity": "pipelines",
     "count": 11,
     "total_stages": 110,
-    "extracted_at": "2026-05-26T16:05:43.774645+00:00",
+    "extracted_at": "2026-05-28T06:00:06.098500+00:00",
     "source": "kommo_api_v4"
   },
   "data": [
@@ -18,7 +18,7 @@
       "stages": [
         {
           "stage_id": 62386811,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 7677959,
           "sort": 10,
           "color": "#c1c1c1",
@@ -139,7 +139,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 7677959,
           "sort": 10000,
           "color": "#CCFF66",
@@ -150,7 +150,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 7677959,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -174,7 +174,7 @@
       "stages": [
         {
           "stage_id": 86187552,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 11231784,
           "sort": 10,
           "color": "#c1c1c1",
@@ -251,7 +251,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 11231784,
           "sort": 10000,
           "color": "#CCFF66",
@@ -262,7 +262,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 11231784,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -286,7 +286,7 @@
       "stages": [
         {
           "stage_id": 86048696,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 11213472,
           "sort": 10,
           "color": "#c1c1c1",
@@ -363,7 +363,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 11213472,
           "sort": 10000,
           "color": "#CCFF66",
@@ -374,7 +374,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 11213472,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -398,7 +398,7 @@
       "stages": [
         {
           "stage_id": 102230147,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 13257515,
           "sort": 10,
           "color": "#c1c1c1",
@@ -475,7 +475,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 13257515,
           "sort": 10000,
           "color": "#CCFF66",
@@ -486,7 +486,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 13257515,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -510,7 +510,7 @@
       "stages": [
         {
           "stage_id": 62443367,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 7687159,
           "sort": 10,
           "color": "#c1c1c1",
@@ -653,7 +653,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 7687159,
           "sort": 10000,
           "color": "#CCFF66",
@@ -664,7 +664,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 7687159,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -688,7 +688,7 @@
       "stages": [
         {
           "stage_id": 67147439,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 8504535,
           "sort": 10,
           "color": "#c1c1c1",
@@ -732,7 +732,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 8504535,
           "sort": 10000,
           "color": "#CCFF66",
@@ -743,7 +743,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 8504535,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -767,7 +767,7 @@
       "stages": [
         {
           "stage_id": 80604468,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 10511808,
           "sort": 10,
           "color": "#c1c1c1",
@@ -844,7 +844,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 10511808,
           "sort": 10000,
           "color": "#CCFF66",
@@ -855,7 +855,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 10511808,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -879,7 +879,7 @@
       "stages": [
         {
           "stage_id": 96693576,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 12518920,
           "sort": 10,
           "color": "#c1c1c1",
@@ -956,7 +956,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 12518920,
           "sort": 10000,
           "color": "#CCFF66",
@@ -967,7 +967,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 12518920,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -991,7 +991,7 @@
       "stages": [
         {
           "stage_id": 100709739,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 13060779,
           "sort": 10,
           "color": "#c1c1c1",
@@ -1092,7 +1092,7 @@
       "stages": [
         {
           "stage_id": 100712427,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 13061107,
           "sort": 10,
           "color": "#c1c1c1",
@@ -1158,7 +1158,7 @@
         },
         {
           "stage_id": 142,
-          "stage_name": "Leads ganados",
+          "stage_name": "Closed - won",
           "pipeline_id": 13061107,
           "sort": 10000,
           "color": "#CCFF66",
@@ -1169,7 +1169,7 @@
         },
         {
           "stage_id": 143,
-          "stage_name": "Leads perdidos",
+          "stage_name": "Closed - lost",
           "pipeline_id": 13061107,
           "sort": 11000,
           "color": "#D5D8DB",
@@ -1193,7 +1193,7 @@
       "stages": [
         {
           "stage_id": 102721743,
-          "stage_name": "Leads Entrantes",
+          "stage_name": "Incoming leads",
           "pipeline_id": 13319963,
           "sort": 10,
           "color": "#c1c1c1",

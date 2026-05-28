@@ -195,6 +195,7 @@ services:
       # Allow reading env vars inside nodes (for Slack webhook etc.)
       N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
       # Expose relevant env vars to nodes
+      NODE_FUNCTION_ALLOW_BUILTIN: "fs,path"
       KOMMO_SLACK_WEBHOOK: ${KOMMO_SLACK_WEBHOOK}
       KOMMO_ALERT_EMAIL_TO: ${KOMMO_ALERT_EMAIL_TO}
 
