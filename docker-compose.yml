@@ -163,6 +163,7 @@ services:
     image: n8nio/n8n:latest
     container_name: kommo-n8n
     restart: unless-stopped
+    user: root
 
     environment:
       # ── Database (PostgreSQL) ──────────────────────────────────────────────
