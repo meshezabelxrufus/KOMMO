@@ -55,7 +55,7 @@ def build_workflow() -> dict:
     # Shell commands run via docker exec - python3 lives in kommo-pipeline
     CMD_RUN = (
         "docker exec kommo-pipeline sh -c "
-        f"'cd {PROJECT_DIR} && "
+        f"'cd /app && "
         f"{PYTHON_BIN} main.py --auto-incremental "
         "> /tmp/kommo_run.log 2>&1; "
         "KOMMO_EXIT=$?; "
@@ -65,7 +65,7 @@ def build_workflow() -> dict:
     )
     CMD_VALIDATE = (
         "docker exec kommo-pipeline sh -c "
-        f"'cd {PROJECT_DIR} && "
+        f"'cd /app && "
         "( [ -s outputs/leads.json ] && echo ok_leads "
         "  || echo FAIL_leads ) && "
         "( [ -s outputs/messages_flat.json ] && echo ok_messages "
@@ -76,13 +76,14 @@ def build_workflow() -> dict:
     )
     CMD_LOGS = (
         "docker exec kommo-pipeline sh -c "
-        f"'tail -n 80 {PROJECT_DIR}/logs/kommo.log 2>/dev/null | head -c 8000'"
+        "'tail -n 80 /app/logs/kommo.log 2>/dev/null | head -c 8000'"
     )
     CMD_ANALYTICS = (
         "docker exec kommo-pipeline sh -c "
-        f"'cat {PROJECT_DIR}/logs/analytics_$(date +%Y-%m-%d).json 2>/dev/null "
+        "'cat /app/logs/analytics_$(date +%Y-%m-%d).json 2>/dev/null "
         "|| echo no_analytics_file; exit 0'"
     )
+
 
     # ── Code node scripts ──────────────────────────────────────────────────
     JS_PARSE_EXIT = r"""
