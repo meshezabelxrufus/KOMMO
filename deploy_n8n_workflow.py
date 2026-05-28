@@ -57,9 +57,9 @@ def build_workflow() -> dict:
         "docker exec -u root kommo-pipeline sh -c "
         f"'cd /app && "
         f"{PYTHON_BIN} main.py --auto-incremental "
-        "> /tmp/kommo_run.log 2>&1; "
+        "> /tmp/kommo_run2.log 2>&1; "
         "KOMMO_EXIT=$?; "
-        "cat /tmp/kommo_run.log; "
+        "cat /tmp/kommo_run2.log; "
         "printf -- ---KOMMO_EXIT_CODE=%s--- $KOMMO_EXIT; "
         "exit 0'"
     )
@@ -83,6 +83,7 @@ def build_workflow() -> dict:
         "'cat /app/logs/analytics_$(date +%Y-%m-%d).json 2>/dev/null "
         "|| echo no_analytics_file; exit 0'"
     )
+
 
 
 
