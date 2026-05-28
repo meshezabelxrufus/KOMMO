@@ -938,7 +938,12 @@ def build_workflow() -> dict:
 
             # Loop processing chain
             "🔄 Expand Leads Array":       {"main": [[{"node": "⚡ Process One Lead at a Time", "type": "main", "index": 0}]]},
-            "⚡ Process One Lead at a Time": {"main": [[{"node": "✍️ Build Claude Prompt",    "type": "main", "index": 0}]]},
+            "⚡ Process One Lead at a Time": {
+                "main": [
+                    [{"node": "✍️ Build Claude Prompt", "type": "main", "index": 0}],      # Loop branch (index 0)
+                    [{"node": "💾 Save AI Summaries to Disk", "type": "main", "index": 0}] # Done branch (index 1)
+                ]
+            },
             "✍️ Build Claude Prompt":       {"main": [[{"node": "⏱️ Rate Limit (1s Pause)",   "type": "main", "index": 0}]]},
             "⏱️ Rate Limit (1s Pause)":     {"main": [[{"node": "🤖 Call Claude API",         "type": "main", "index": 0}]]},
             "🤖 Call Claude API":           {"main": [[{"node": "🔬 Parse AI Response",        "type": "main", "index": 0}]]},
@@ -957,8 +962,13 @@ def build_workflow() -> dict:
                     [{"node": "❌ Log Parse Error",            "type": "main", "index": 0}],
                 ]
             },
-            # After loop exhausts all leads, SplitInBatches emits from output 1 (done)
-            # We wire that to save → sheets → filter → rollup in parallel
+            
+            # Reconnect Log Parse Error back to the loop so it doesn't hang on failures
+            "❌ Log Parse Error": {
+                "main": [
+                    [{"node": "⚡ Process One Lead at a Time", "type": "main", "index": 0}],
+                ]
+            },
 
             # Post-loop outputs (parallel fan-out)
             "💾 Save AI Summaries to Disk": {
