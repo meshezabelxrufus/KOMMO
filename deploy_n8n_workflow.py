@@ -608,11 +608,11 @@ return [{
                             {"name": "severity",     "value": "critical"},
                             {"name": "title",        "value": "={{ $json.alert_title }}"},
                             {"name": "message",      "value": "={{ $json.alert_details || 'One or more output files missing or invalid.' }}"},
-                            {"name": "source",       "value": "Workflow 1 — Master Orchestration",
-                        "  triggered_by: $json.triggered_by,"
-                        "  details: { stage: $json.alert_stage, failures: $json.alert_details }"
-                        "}) }}"
-                    ),
+                            {"name": "source",       "value": "Workflow 1 — Master Orchestration"},
+                            {"name": "triggered_by", "value": "={{ $json.triggered_by }}"},
+                            {"name": "stage",        "value": "={{ $json.alert_stage }}"},
+                        ]
+                    },
                     "options": {
                         "response": {"response": {"neverError": True}},
                         "timeout":  10000,
@@ -710,8 +710,6 @@ _READ_ONLY_FIELDS = {"active", "tags", "id", "createdAt", "updatedAt", "versionI
 def _safe_payload(workflow: dict, keep_id: str | None = None) -> dict:
     """Return a copy of the workflow dict with all read-only fields removed."""
     payload = {k: v for k, v in workflow.items() if k not in _READ_ONLY_FIELDS}
-    if keep_id:
-        payload["id"] = keep_id
     return payload
 
 

@@ -55,8 +55,6 @@ _READ_ONLY = {"active", "tags", "id", "createdAt", "updatedAt", "versionId"}
 
 def _clean(workflow: dict, keep_id: str | None = None) -> dict:
     payload = {k: v for k, v in workflow.items() if k not in _READ_ONLY}
-    if keep_id:
-        payload["id"] = keep_id
     return payload
 
 
