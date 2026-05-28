@@ -190,25 +190,15 @@ return [{{ json: {{ rows: [row], status: 'ok', count: 1 }} }}];
 JS_BATCH_LEADS = """
 const item  = $input.first().json;
 const rows  = item.rows || [];
-const size  = 250;
-const batches = [];
-for (let i = 0; i < rows.length; i += size) {
-  batches.push({ rows: rows.slice(i, i + size), batchIndex: Math.floor(i/size) });
-}
-if (!batches.length) batches.push({ rows: [], batchIndex: 0 });
-return batches.map(b => ({ json: b }));
+if (!rows.length) return [{ json: { _empty: true } }];
+return rows.map(r => ({ json: r }));
 """
 
 JS_BATCH_MESSAGES = """
 const item  = $input.first().json;
 const rows  = item.rows || [];
-const size  = 250;
-const batches = [];
-for (let i = 0; i < rows.length; i += size) {
-  batches.push({ rows: rows.slice(i, i + size), batchIndex: Math.floor(i/size) });
-}
-if (!batches.length) batches.push({ rows: [], batchIndex: 0 });
-return batches.map(b => ({ json: b }));
+if (!rows.length) return [{ json: { _empty: true } }];
+return rows.map(r => ({ json: r }));
 """
 
 # Build final sync report
