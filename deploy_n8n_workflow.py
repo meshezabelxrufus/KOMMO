@@ -30,7 +30,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 
 N8N_API_URL  = "http://localhost:5678/api/v1"
-N8N_API_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0M2NkNDc0Yy01Mzk1LTQ5Y2EtYjcwOC1mOWUyZjMwMGI0NTEiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzc5OTU3MTM1LCJleHAiOjE3ODI1MzI4MDB9.xWSw6FDIcX6CSv17DHV8R9-ftViouR344fjo-BEXpeM"
+N8N_API_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZjc1YWZkZC0wZjE3LTQ5YTktODljMS0xMmM1YTM4NGIwMjUiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiYjE1Y2QwNmItMDc1Yy00NDE4LTgxNTktMzAwZGI4NTI3MzQ5IiwiaWF0IjoxNzc5OTkxNTQ4fQ.wX3Yv9o0lEtoD37Xrkm05y7H5UTiJP6XUdje1I1dreA"
 PROJECT_DIR  = "/opt/kommo-platform/app"
 PYTHON_BIN   = "python3"
 
@@ -567,17 +567,18 @@ return [{
                     },
                     "sendBody":    True,
                     "specifyBody": "json",
-                    "jsonBody": (
-                        "={{ JSON.stringify({"
-                        "  alert_type:   'extraction_failure',"
-                        "  severity:     'critical',"
-                        "  title:        $json.alert_title,"
-                        "  message:      $json.alert_details || 'Pipeline exit code: ' + $json.exit_code,"
-                        "  source:       'Workflow 1 — Master Orchestration',"
-                        "  triggered_by: $json.triggered_by,"
-                        "  details: { stage: $json.alert_stage, exit_code: $json.exit_code }"
-                        "}) }}"
-                    ),
+                    "bodyParameters": {
+                        "parameters": [
+                            {"name": "alert_type",   "value": "extraction_failure"},
+                            {"name": "severity",     "value": "critical"},
+                            {"name": "title",        "value": "={{ $json.alert_title }}"},
+                            {"name": "message",      "value": "={{ $json.alert_details || 'Pipeline exit code: ' + $json.exit_code }}"},
+                            {"name": "source",       "value": "Workflow 1 — Master Orchestration"},
+                            {"name": "triggered_by", "value": "={{ $json.triggered_by }}"},
+                            {"name": "stage",        "value": "={{ $json.alert_stage }}"},
+                            {"name": "exit_code",    "value": "={{ $json.exit_code }}"},
+                        ]
+                    },
                     "options": {
                         "response": {"response": {"neverError": True}},
                         "timeout":  10000,
@@ -601,13 +602,13 @@ return [{
                     },
                     "sendBody":    True,
                     "specifyBody": "json",
-                    "jsonBody": (
-                        "={{ JSON.stringify({"
-                        "  alert_type:   'validation_error',"
-                        "  severity:     'critical',"
-                        "  title:        $json.alert_title,"
-                        "  message:      $json.alert_details || 'One or more output files missing or invalid.',"
-                        "  source:       'Workflow 1 — Master Orchestration',"
+                    "bodyParameters": {
+                        "parameters": [
+                            {"name": "alert_type",   "value": "validation_error"},
+                            {"name": "severity",     "value": "critical"},
+                            {"name": "title",        "value": "={{ $json.alert_title }}"},
+                            {"name": "message",      "value": "={{ $json.alert_details || 'One or more output files missing or invalid.' }}"},
+                            {"name": "source",       "value": "Workflow 1 — Master Orchestration",
                         "  triggered_by: $json.triggered_by,"
                         "  details: { stage: $json.alert_stage, failures: $json.alert_details }"
                         "}) }}"
