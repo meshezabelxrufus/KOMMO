@@ -164,7 +164,7 @@ services:
     container_name: kommo-n8n
     restart: unless-stopped
     user: root
-    entrypoint: ["/bin/sh", "-c", "apk add --no-cache docker-cli && exec su-exec node tini -- /docker-entrypoint.sh"]
+    entrypoint: ["/bin/sh", "-c", "apk add --no-cache docker-cli && exec gosu node tini -- /docker-entrypoint.sh"]
 
     environment:
       # ── Database (PostgreSQL) ──────────────────────────────────────────────
