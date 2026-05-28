@@ -52,31 +52,33 @@ HEADERS = {
 def build_workflow() -> dict:
     """Build the complete n8n workflow JSON."""
 
-    # ── Shell command strings ──────────────────────────────────────────────
     CMD_RUN = (
+        f"docker exec kommo-pipeline sh -c '"
         f"cd {PROJECT_DIR} && "
         f"{PYTHON_BIN} main.py --auto-incremental "
         f"> /tmp/kommo_run.log 2>&1; "
         f"KOMMO_EXIT=$?; "
         f"cat /tmp/kommo_run.log; "
-        f"echo ''; echo '---KOMMO_EXIT_CODE='$KOMMO_EXIT'---'; "
-        f"exit 0"
+        f"echo \\'\\'; echo \\'---KOMMO_EXIT_CODE=\\'$KOMMO_EXIT\\'---\\'; "
+        f"exit 0'"
     )
     CMD_VALIDATE = (
+        f"docker exec kommo-pipeline sh -c '"
         f"cd {PROJECT_DIR} && "
-        "( [ -s outputs/leads.json ] && echo '✓ leads.json OK' "
-        "  || echo 'FAIL: leads.json missing or empty' ) && "
-        "( [ -s outputs/messages_flat.json ] && echo '✓ messages_flat.json OK' "
-        "  || echo 'FAIL: messages_flat.json missing or empty' ) && "
+        "( [ -s outputs/leads.json ] && echo \\'✓ leads.json OK\\' "
+        "  || echo \\'FAIL: leads.json missing or empty\\' ) && "
+        "( [ -s outputs/messages_flat.json ] && echo \\'✓ messages_flat.json OK\\' "
+        "  || echo \\'FAIL: messages_flat.json missing or empty\\' ) && "
         "( ls daily_exports/*.json 2>/dev/null | head -1 > /dev/null "
-        "  && echo '✓ daily_exports OK' || echo 'FAIL: no files in daily_exports/' ) && "
-        "echo '' && echo '---VALIDATION=PASSED---' || echo '---VALIDATION=FAILED---'"
+        "  && echo \\'✓ daily_exports OK\\' || echo \\'FAIL: no files in daily_exports/\\' ) && "
+        "echo \\'\\' && echo \\'---VALIDATION=PASSED---\\' || echo \\'---VALIDATION=FAILED---\\''"
     )
-    CMD_LOGS      = f"tail -n 80 {PROJECT_DIR}/logs/kommo.log 2>/dev/null | head -c 8000 || echo 'No log file found'"
+    CMD_LOGS      = f"docker exec kommo-pipeline sh -c 'tail -n 80 {PROJECT_DIR}/logs/kommo.log 2>/dev/null | head -c 8000 || echo \\'No log file found\\''"
     CMD_ANALYTICS = (
+        f"docker exec kommo-pipeline sh -c '"
         f"cat {PROJECT_DIR}/logs/analytics_$(date +%Y-%m-%d).json 2>/dev/null "
-        f"|| echo '{{\"status\":\"no analytics file\",\"date\":\"'$(date +%Y-%m-%d)'\"}}';"
-        f"exit 0"
+        f"|| echo \\'{{\"status\":\"no analytics file\",\"date\":\"'$(date +%Y-%m-%d)'\"}}\\'; "
+        f"exit 0'"
     )
 
     # ── Code node scripts ──────────────────────────────────────────────────
