@@ -178,8 +178,8 @@ services:
       N8N_PORT: 5678
       N8N_PROTOCOL: http
       # Public-facing URL — used for webhook URLs in workflow nodes
-      WEBHOOK_URL: http://178.105.250.18:5678/
-      N8N_EDITOR_BASE_URL: http://178.105.250.18:5678/
+      WEBHOOK_URL: http://localhost:5678/
+      N8N_EDITOR_BASE_URL: http://localhost:5678/
       N8N_SECURE_COOKIE: "false"
 
       # ── Security ──────────────────────────────────────────────────────────
