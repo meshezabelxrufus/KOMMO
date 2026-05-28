@@ -295,8 +295,8 @@ services:
       # Secrets bind-mount — read-only inside container
       - /opt/kommo-platform/secrets:/app/secrets:ro
 
-    # Run the pipeline on startup, then the container stays alive for n8n Execute Command calls
-    command: ["python", "main.py", "--auto-incremental"]
+    # Keep the container alive permanently so n8n can use 'docker exec' to trigger runs
+    command: ["tail", "-f", "/dev/null"]
 
     healthcheck:
       test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
