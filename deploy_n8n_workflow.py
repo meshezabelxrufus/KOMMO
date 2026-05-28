@@ -30,7 +30,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 
 N8N_API_URL  = "http://localhost:5678/api/v1"
-N8N_API_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZjc1YWZkZC0wZjE3LTQ5YTktODljMS0xMmM1YTM4NGIwMjUiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiYzdmZjNlZjgtMDhkYy00Y2Q2LTlkOTUtMDU0MjkwYzNhMWYzIiwiaWF0IjoxNzc5ODk1NTU0fQ.UAH-vKXs0pbKEA0UU1V7noYbbRuxfeHjja8fhYMuexo"
+N8N_API_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0M2NkNDc0Yy01Mzk1LTQ5Y2EtYjcwOC1mOWUyZjMwMGI0NTEiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzc5OTU3MTM1LCJleHAiOjE3ODI1MzI4MDB9.xWSw6FDIcX6CSv17DHV8R9-ftViouR344fjo-BEXpeM"
 PROJECT_DIR  = "/opt/kommo-platform/app"
 PYTHON_BIN   = "python3"
 
