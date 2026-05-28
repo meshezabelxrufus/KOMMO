@@ -54,7 +54,7 @@ def build_workflow() -> dict:
 
     # Shell commands run via docker exec - python3 lives in kommo-pipeline
     CMD_RUN = (
-        "docker exec kommo-pipeline sh -c "
+        "docker exec -u root kommo-pipeline sh -c "
         f"'cd /app && "
         f"{PYTHON_BIN} main.py --auto-incremental "
         "> /tmp/kommo_run.log 2>&1; "
@@ -64,7 +64,7 @@ def build_workflow() -> dict:
         "exit 0'"
     )
     CMD_VALIDATE = (
-        "docker exec kommo-pipeline sh -c "
+        "docker exec -u root kommo-pipeline sh -c "
         f"'cd /app && "
         "( [ -s outputs/leads.json ] && echo ok_leads "
         "  || echo FAIL_leads ) && "
@@ -75,14 +75,15 @@ def build_workflow() -> dict:
         "echo ---VALIDATION=PASSED--- || echo ---VALIDATION=FAILED---'"
     )
     CMD_LOGS = (
-        "docker exec kommo-pipeline sh -c "
+        "docker exec -u root kommo-pipeline sh -c "
         "'tail -n 80 /app/logs/kommo.log 2>/dev/null | head -c 8000'"
     )
     CMD_ANALYTICS = (
-        "docker exec kommo-pipeline sh -c "
+        "docker exec -u root kommo-pipeline sh -c "
         "'cat /app/logs/analytics_$(date +%Y-%m-%d).json 2>/dev/null "
         "|| echo no_analytics_file; exit 0'"
     )
+
 
 
     # ── Code node scripts ──────────────────────────────────────────────────
